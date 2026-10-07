@@ -19,7 +19,7 @@ site has to be the organisation's root Pages repo.
 
 ## Publish (one time)
 
-1. On GitHub, under the **VastOceanLabs** organisation, create a **public**
+1. On GitHub, under the **VastOceanLabs** account, create a **public**
    repo named exactly `vastoceanlabs.github.io`.
 2. Copy everything in this folder (including the hidden `.well-known/`) into
    that repo and push.
@@ -56,5 +56,7 @@ adb shell pm get-app-links com.finepointrehab.redirect
 
 ## Keep the policy copies in sync
 
-`re-direct/*.md` are copies of `docs/PRIVACY_POLICY.md` and
-`docs/ACCESSIBILITY_DISCLOSURE.md`. When either changes, copy it again and push.
+`re-direct/*.md` are generated from `docs/PRIVACY_POLICY.md` and
+`docs/ACCESSIBILITY_DISCLOSURE.md` by `node scripts/sync_web_docs.js`, which also
+rewrites repo-relative links. Re-run it whenever either doc changes, then copy
+`web/` into the `vastoceanlabs.github.io` repo and push.

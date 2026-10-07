@@ -71,7 +71,7 @@ are not just policy commitments.
 - **It does not transmit anything.** re-direct does not declare the
   `INTERNET` permission. There is no off-device destination for the
   package-name signal to be sent to. See
-  [PRIVACY_POLICY.md](PRIVACY_POLICY.md).
+  [privacy policy](privacy-policy.html).
 
 ## Why an accessibility service rather than something narrower
 

@@ -10,7 +10,7 @@ policy explains what re-direct stores, why it stores it, what it never collects,
 and what the permissions it requests are used for.
 
 If we ever change the model — even adding a single network call — this policy
-changes first, and the change is announced in [CHANGELOG.md](CHANGELOG.md)
+changes first, and the change is announced in [release notes](privacy-policy.html#changes-to-this-policy)
 before the release that contains it ships.
 
 ## TL;DR
@@ -84,7 +84,7 @@ When someone taps a prompt link:
 - No messages, keystrokes, or on-screen text content. The accessibility
   service is explicitly configured with `canRetrieveWindowContent="false"`
   and only reads the package name of the app currently in the foreground —
-  see [ACCESSIBILITY_DISCLOSURE.md](ACCESSIBILITY_DISCLOSURE.md).
+  see [accessibility disclosure](accessibility.html).
 - No analytics events, no usage telemetry, no opt-in research panel.
 
 ## Permissions re-direct requests, and what each is used for
@@ -100,7 +100,7 @@ first run.
 | `WAKE_LOCK` | Install-time, normal | Held only while a break, sprint, or scroll session timer is ticking; released the instant all timers return to idle. Prevents the OS from throttling the timer during long screen-off windows. |
 | `SYSTEM_ALERT_WINDOW` (Display over other apps) | Special, toggled in system Settings | Draws the redirect overlay on top of a blocked app the moment it reaches the foreground, and powers the Scroll & return sticky-overlay when a scroll session expires. |
 | `PACKAGE_USAGE_STATS` (Usage access) | Special, toggled in system Settings | Powers the "most-opened apps today" tile in Analytics and feeds the recipe recommender's time-of-day signal. |
-| `BIND_ACCESSIBILITY_SERVICE` | Special, toggled in system Accessibility settings | Detects when a blocked app comes to the foreground so re-direct can offer the redirect overlay, and suppresses block-redirect for your chosen scroll-target while a Scroll & return session is active. Reads **only** the foreground package name — see [ACCESSIBILITY_DISCLOSURE.md](ACCESSIBILITY_DISCLOSURE.md). |
+| `BIND_ACCESSIBILITY_SERVICE` | Special, toggled in system Accessibility settings | Detects when a blocked app comes to the foreground so re-direct can offer the redirect overlay, and suppresses block-redirect for your chosen scroll-target while a Scroll & return session is active. Reads **only** the foreground package name — see [accessibility disclosure](accessibility.html). |
 | `BIND_QUICK_SETTINGS_TILE` | Signature, held by the system | Lets the OS bind the "Take a re-direct" Quick Settings tile. |
 | Package visibility (`<queries>` for `ACTION_MAIN` / `CATEGORY_LAUNCHER`) | Install-time, narrow | Lets the anchor-screen "Returning to" picker and the block-list app picker list apps you can launch from your home screen. We deliberately do **not** request the broader `QUERY_ALL_PACKAGES` permission. |
 | Package visibility for WhatsApp, WhatsApp Business, Messenger and the SMS app | Install-time, narrow | Lets "Send a prompt" show a button for each of those apps only when it is installed. Nothing is read from those apps. |
@@ -138,7 +138,7 @@ anywhere except on your device.
 If a future version of re-direct ever introduces a network call, a third-party
 SDK, an account system, or any new data collection, this policy will be updated
 **before** that release ships, and the change will be flagged in
-[CHANGELOG.md](CHANGELOG.md) under a "Privacy" heading.
+[release notes](privacy-policy.html#changes-to-this-policy) under a "Privacy" heading.
 
 ## Contact
 
