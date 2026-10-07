@@ -1,0 +1,92 @@
+<!doctype html>
+<!--
+  Fallback page for re-direct prompt links (https://<host>/r/#f=<from>).
+  With Android App Links verified, phones that have re-direct open the app
+  directly and never see this page. Everyone else lands here: Android users
+  get an "Open re-direct" button (custom scheme via an intent: URL, falling
+  back to the Play listing), everyone else gets a short explanation.
+
+  The sender's name lives in the URL fragment, which browsers never send to
+  the server, and it is only ever written with textContent.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Take a re-direct</title>
+<meta name="description" content="Someone thinks you could use a short reset. Tap to open re-direct.">
+<meta property="og:title" content="Take a re-direct">
+<meta property="og:description" content="Someone thinks you could use a short reset. Tap to open re-direct.">
+<meta property="og:image" content="https://vastoceanlabs.github.io/r/og.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<style>
+  :root { --bg:#FAF6F0; --ink:#2A2F2F; --muted:#5B6262; --brand:#5E8B87; --deep:#0D474C; --card:#FFFFFF; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#161B1B; --ink:#E8E4DD; --muted:#A9B0AE; --brand:#8FB3AF; --deep:#C9DEDB; --card:#1F2625; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.55 system-ui, -apple-system, Roboto, sans-serif; }
+  main { max-width:460px; margin:0 auto; padding:56px 16px 40px; text-align:center; }
+  img { width:112px; height:112px; border-radius:26px; }
+  h1 { color:var(--deep); font-size:28px; line-height:1.25; margin:24px 0 8px; }
+  p { color:var(--muted); margin:0 0 24px; }
+  .btn { display:block; padding:16px; border-radius:28px; font-weight:600; text-decoration:none; margin:12px 0; }
+  .primary { background:var(--brand); color:#fff; }
+  .secondary { border:1px solid var(--muted); color:var(--ink); }
+  .hidden { display:none; }
+  small { color:var(--muted); display:block; margin-top:28px; }
+</style>
+</head>
+<body>
+<main>
+  <img src="og.png" alt="">
+  <h1 id="title">Someone sent you a nudge</h1>
+  <p id="message">They think you could use a short reset — a few minutes away, then back to what matters.</p>
+
+  <div id="android" class="hidden">
+    <a id="open" class="btn primary" href="#">Open re-direct</a>
+    <a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.finepointrehab.redirect">Get re-direct on Google Play</a>
+  </div>
+  <div id="other" class="hidden">
+    <p>re-direct is an Android app. Open this link on your Android phone, or find it on Google Play.</p>
+    <a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.finepointrehab.redirect">re-direct on Google Play</a>
+  </div>
+
+  <small>re-direct keeps everything on your phone. No account, no tracking.</small>
+</main>
+<script>
+  (function () {
+    var params = {};
+    location.hash.replace(/^#/, '').split('&').forEach(function (pair) {
+      var i = pair.indexOf('=');
+      if (i < 1) return;
+      try { params[pair.slice(0, i)] = decodeURIComponent(pair.slice(i + 1)); } catch (e) {}
+    });
+    var clean = function (v, max) {
+      if (!v) return '';
+      v = v.replace(/[\u0000-\u001F\u007F]/g, ' ').replace(/\s+/g, ' ').trim();
+      return v.length > max ? v.slice(0, max - 1) + '…' : v;
+    };
+    var from = clean(params.f, 30);
+    var msg = clean(params.m, 140);
+    if (from) document.getElementById('title').textContent = from + ' sent you a nudge';
+    if (msg) document.getElementById('message').textContent = '“' + msg + '”';
+
+    if (/android/i.test(navigator.userAgent)) {
+      var query = [];
+      if (from) query.push('f=' + encodeURIComponent(from));
+      if (msg) query.push('m=' + encodeURIComponent(msg));
+      var store = 'https://play.google.com/store/apps/details?id=com.finepointrehab.redirect';
+      document.getElementById('open').href =
+        'intent://prompt' + (query.length ? '?' + query.join('&') : '') +
+        '#Intent;scheme=redirectapp;package=com.finepointrehab.redirect;' +
+        'S.browser_fallback_url=' + encodeURIComponent(store) + ';end';
+      document.getElementById('android').classList.remove('hidden');
+    } else {
+      document.getElementById('other').classList.remove('hidden');
+    }
+  })();
+</script>
+</body>
+</html>

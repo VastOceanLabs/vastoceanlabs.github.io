@@ -1,0 +1,23 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.finepointrehab.redirect",
+      "sha256_cert_fingerprints": [
+        "REPLACE_WITH_PLAY_APP_SIGNING_KEY_SHA256",
+        "REPLACE_WITH_UPLOAD_KEY_SHA256"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.finepointrehab.redirect.debug",
+      "sha256_cert_fingerprints": [
+        "75:12:06:C6:F9:C2:FE:1D:30:D4:FA:18:57:31:35:25:54:DE:30:22:46:7A:93:E9:E4:BC:0C:ED:FF:B2:0C:6F"
+      ]
+    }
+  }
+]
