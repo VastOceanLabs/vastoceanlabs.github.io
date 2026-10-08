@@ -1,7 +1,14 @@
-# web/ — the public site behind prompt links and the privacy policy
+# vastoceanlabs.github.io
 
-This folder is the full content of a GitHub Pages site. It is **not** part of
-the app build. It serves four things:
+The Vast Ocean Labs website, served by GitHub Pages from `main`.
+
+**Building the site?** Start with [`CLAUDE.md`](CLAUDE.md), then
+[`docs/STATUS.md`](docs/STATUS.md) (where things stand),
+[`docs/PLAN.md`](docs/PLAN.md) (the session-by-session plan) and
+[`docs/DECISIONS.md`](docs/DECISIONS.md) (what's been decided).
+
+Besides the studio home page (`/`), the site serves four things for the
+re-direct Android app. Their paths must not change:
 
 | Path | What it's for |
 |---|---|
@@ -10,6 +17,22 @@ the app build. It serves four things:
 | `/re-direct/privacy-policy.html` | Privacy policy URL for the Play Console (rendered from the `.md`). |
 | `/re-direct/accessibility.html` | Accessibility-service disclosure URL for the Play Console. |
 
+## Building locally
+
+GitHub Pages builds the site from `main` with Jekyll; there is no build step
+to run before pushing. To preview or check a change locally (Ruby required):
+
+```
+bundle config set --local path vendor && bundle install   # first time
+scripts/build.sh          # build into _site/
+scripts/build.sh serve    # serve on http://127.0.0.1:4000
+```
+
+The script mirrors GitHub Pages (same gem, default plugins and theme) and works
+offline. Layout of the source: see "Site architecture" in
+[`docs/PLAN.md`](docs/PLAN.md). To add an app, add an entry to
+`_data/apps.yml` and a folder for its pages.
+
 ## The host must match the app
 
 The app is built for **`vastoceanlabs.github.io`**. That value lives in one
@@ -17,15 +40,11 @@ place: `promptHost` in [`app/build.gradle.kts`](../app/build.gradle.kts).
 App Links only work from a domain **root**, so for a `github.io` host the
 site has to be the organisation's root Pages repo.
 
-## Publish (one time)
+## Publishing
 
-1. On GitHub, under the **VastOceanLabs** account, create a **public**
-   repo named exactly `vastoceanlabs.github.io`.
-2. Copy everything in this folder (including the hidden `.well-known/`) into
-   that repo and push.
-3. Repo → Settings → Pages → Source: *Deploy from a branch*, `main`, `/ (root)`.
-4. Check that `https://vastoceanlabs.github.io/.well-known/assetlinks.json`
-   loads as JSON.
+Repo → Settings → Pages → Source: *Deploy from a branch*, `main`, `/ (root)`.
+After a merge to `main`, check that
+`https://vastoceanlabs.github.io/.well-known/assetlinks.json` loads as JSON.
 
 If you would rather use your own domain (e.g. `redirect.vastoceanlabs.com`),
 point it at the same repo, change `promptHost` in `app/build.gradle.kts`, and
@@ -59,4 +78,5 @@ adb shell pm get-app-links com.finepointrehab.redirect
 `re-direct/*.md` are generated from `docs/PRIVACY_POLICY.md` and
 `docs/ACCESSIBILITY_DISCLOSURE.md` by `node scripts/sync_web_docs.js`, which also
 rewrites repo-relative links. Re-run it whenever either doc changes, then copy
-`web/` into the `vastoceanlabs.github.io` repo and push.
+the app repo's `web/re-direct/*.md` into `re-direct/` here and push. Don't
+edit the policy text in this repo.

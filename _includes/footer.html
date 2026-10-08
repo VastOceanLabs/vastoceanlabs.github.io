@@ -1,0 +1,15 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span data-year>{{ site.time | date: "%Y" }}</span> {{ site.title }}</span>
+    <span class="links">
+      {%- for app in site.data.apps -%}
+        {%- for link in app.links -%}
+          {%- if link.footer %}
+      <a href="{{ link.url | relative_url }}">{{ app.name }} {{ link.title | downcase }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor %}
+    </span>
+  </div>
+</footer>
+<script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>

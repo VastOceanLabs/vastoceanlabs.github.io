@@ -1,0 +1,28 @@
+# One entry per app. Drives the home page app cards and the footer links.
+# Paths are site-relative. Keep claims true of the shipped app.
+#
+# slug         folder name under the site root (policy pages live there)
+# icon         512x512 PNG under assets/img/apps/
+# description  one paragraph; points are short bullets
+# store        primary download button
+# links        secondary links (policies etc.); footer: true also lists it in the footer
+
+- slug: re-direct
+  name: re-direct
+  platform: Android
+  icon: /assets/img/apps/re-direct.png
+  icon_alt: "re-direct app icon: a calm face with an arrow curving back over a cloud"
+  description: >-
+    When you're tired or distracted, re-direct helps you take a short reset and
+    then get back to the right task. Pick a break (breathe, stretch, look away,
+    a moment of quiet) and it brings you back to what you were working on.
+  points:
+    - No account, no ads, no analytics
+    - Everything stays on your phone; the app doesn't request internet access
+    - Send a friend a gentle nudge to take a break
+  store:
+    label: Get it on Google Play
+    url: https://play.google.com/store/apps/details?id=com.finepointrehab.redirect
+  links:
+    - { title: Privacy policy, url: /re-direct/privacy-policy.html, footer: true }
+    - { title: Accessibility disclosure, url: /re-direct/accessibility.html }

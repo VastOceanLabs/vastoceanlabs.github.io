@@ -1,13 +1,64 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vast Ocean Labs</title>
-<style>body{margin:0;background:#FAF6F0;color:#2A2F2F;font:16px/1.6 system-ui,sans-serif}main{max-width:640px;margin:0 auto;padding:48px 16px}a{color:#3F6E6A}h1{color:#0D474C}</style>
-</head><body><main>
-<h1>re-direct</h1>
-<p>A calm Android app for taking a short reset and getting back to the right task. By Vast Ocean Labs.</p>
-<ul>
-<li><a href="https://play.google.com/store/apps/details?id=com.finepointrehab.redirect">Get it on Google Play</a></li>
-<li><a href="re-direct/privacy-policy.html">Privacy policy</a></li>
-<li><a href="re-direct/accessibility.html">Accessibility service disclosure</a></li>
-</ul>
-</main></body></html>
+---
+layout: default
+# Home page. Title comes from _config.yml.
+description: >-
+  Vast Ocean Labs makes small, calm software that respects your attention.
+  Our first app is re-direct, a local-first Android app for taking a short reset.
+og_description: Small, calm software that respects your attention.
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <p class="eyebrow">Vast Ocean Labs</p>
+    <h1 id="hero-title">Calm software for a noisy world.</h1>
+    <p class="lede">We make small, focused apps that respect your attention, keep your data on your device, and get out of the way.</p>
+    <a class="btn" href="#apps">See our apps</a>
+  </div>
+  <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="var(--wave-1)" d="M0,64 C240,24 480,104 720,64 C960,24 1200,104 1440,64 L1440,120 L0,120 Z"/>
+    <path fill="var(--wave-2)" d="M0,84 C200,54 440,114 720,84 C1000,54 1240,114 1440,84 L1440,120 L0,120 Z"/>
+    <path fill="var(--surface)" d="M0,104 C260,84 520,124 720,104 C920,84 1180,124 1440,104 L1440,120 L0,120 Z"/>
+  </svg>
+</section>
+
+<section id="apps" class="section band" aria-labelledby="apps-title">
+  <div class="wrap">
+    <h2 id="apps-title">Apps</h2>
+    <p class="section-intro">One app so far, built carefully.</p>
+
+    {%- for app in site.data.apps %}
+    {% include app-card.html app=app %}
+    {%- endfor %}
+  </div>
+</section>
+
+<section id="principles" class="section" aria-labelledby="principles-title">
+  <div class="wrap">
+    <h2 id="principles-title">How we build</h2>
+    <p class="section-intro">A few rules we hold ourselves to.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Local-first</h3>
+        <p>Your data lives on your device. If an app doesn't need a server, it doesn't get one.</p>
+      </div>
+      <div class="card">
+        <h3>No tracking</h3>
+        <p>No advertising, analytics or third-party SDKs watching what you do.</p>
+      </div>
+      <div class="card">
+        <h3>Calm by design</h3>
+        <p>Fewer notifications, gentler defaults, and nothing built to keep you scrolling.</p>
+      </div>
+      <div class="card">
+        <h3>Plain-language policies</h3>
+        <p>Privacy policies you can actually read, updated before anything changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section band" aria-labelledby="contact-title">
+  <div class="wrap">
+    <h2 id="contact-title">Get in touch</h2>
+    <p class="section-text">Questions, feedback or bug reports are always welcome. Email <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+  </div>
+</section>

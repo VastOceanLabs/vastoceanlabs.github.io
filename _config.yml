@@ -1,4 +1,22 @@
-# GitHub Pages (Jekyll) config. Dot-directories are skipped by default;
-# Android App Links need /.well-known/assetlinks.json served.
+# GitHub Pages (Jekyll) config. See docs/PLAN.md for the site structure.
+
+title: Vast Ocean Labs
+description: >-
+  Vast Ocean Labs makes small, calm software that respects your attention.
+url: https://vastoceanlabs.github.io
+baseurl: ""
+lang: en
+# Public contact address, used on the home page (decision D-05).
+email: e.joyce01@gmail.com
+
+# Dot-directories are skipped by default; Android App Links need
+# /.well-known/assetlinks.json served.
 include: [".well-known"]
-exclude: ["README.md"]
+# Planning docs and repo files are not part of the site.
+exclude: ["README.md", "CLAUDE.md", "docs", "scripts", "Gemfile", "Gemfile.lock", "vendor"]
+
+# Markdown pages without front matter (the re-direct policies, synced from the
+# app repo) get the "page" layout via GitHub Pages' default plugins.
+defaults:
+  - scope: { path: "", type: pages }
+    values: { layout: page }
