@@ -19,6 +19,7 @@
 - S4 needs D-02 (copy sign-off), D-05 (contact email) and D-06 (about). Ask at
   the start, before writing copy.
 - Brand is settled: D-03 (logo), D-04 (Nunito headings), D-12 (palette).
+  To change the logo, see D-03; never hand-edit the generated SVGs/PNGs.
   Use the tokens at the top of `assets/css/site.css` (colour, `--text-*` type
   scale, `--space-*` spacing) rather than new literal values.
 - The app page (`_layouts/app.html`) can set `og_image` in front matter for
@@ -85,4 +86,4 @@
 |---|---|---|---|---|
 | S1 | 2026-10-08 | `claude/gifted-galileo-lof422` | Home page first draft; build plan, decision log, status docs, CLAUDE.md; README fixed for this repo | PR 1 |
 | S2 | 2026-10-08 | `claude/gifted-galileo-lof422` | Jekyll structure: layouts, includes, `site.css` tokens, `apps.yml`/`navigation.yml`; policy pages on the site layout; mobile tables; local build script. Home page pixel-identical to S1; protected URLs byte-identical | [PR 1](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1) |
-| S3 | 2026-10-08 | `claude/keen-edison-jpo2qa` (from PR 1 branch) | Studio brand: wave mark + Nunito wordmark (D-03), self-hosted Nunito headings (D-04), deeper ocean palette (D-12, fixes AA contrast), type and spacing tokens, favicons, apple-touch icon, 1200×630 share image as `og:image`; `scripts/brand/` generator. Protected URLs identical to S2; no horizontal scroll at 1280/390 light/dark | — (PR 2 after S4) |
+| S3 | 2026-10-08 | `claude/keen-edison-jpo2qa` (from PR 1 branch) | Studio brand: user's sunset-over-sea mark, traced and recoloured, + Nunito wordmark (D-03; replaced the first drawn mark the same day), self-hosted Nunito headings (D-04), deeper ocean palette (D-12, fixes AA contrast), type and spacing tokens, favicons, apple-touch icon, 1200×630 share image as `og:image`; `scripts/brand/` generator. Protected URLs identical to S2; no horizontal scroll at 1280/390 light/dark | — (PR 2 after S4) |

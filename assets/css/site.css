@@ -13,7 +13,7 @@
   --bg:#FAF6F0; --surface:#FFFFFF; --ink:#263238; --muted:#56616A;
   --brand:#2B6A88; --deep:#0B3A52; --line:#E4DED4; --on-brand:#FFFFFF;
   --wave-1:#D9E8EE; --wave-2:#B5D3E0;
-  --mark-disc:#0B3A52; --mark-accent:#8EBFD6; --mark-line:#FAF6F0;
+  --mark-sky:#8EBFD6; --mark-sea:#0B3A52; --mark-gap:#FAF6F0;
 
   /* Type (D-04): Nunito for headings and the wordmark, system fonts for text. */
   --font:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -35,7 +35,7 @@
     --bg:#121A1E; --surface:#1A242A; --ink:#E6E8E6; --muted:#A3AFB5;
     --brand:#8EBFD6; --deep:#D3E6EF; --line:#29363D; --on-brand:#0B1A22;
     --wave-1:#172328; --wave-2:#1D3440;
-    --mark-disc:#24597A; --mark-accent:#B9DCEB; --mark-line:#FAF6F0;
+    --mark-sky:#8EBFD6; --mark-sea:#24597A; --mark-gap:#FAF6F0;
   }
 }
 
@@ -56,7 +56,7 @@ h1, h2, h3 { color:var(--deep); font-family:var(--font-display); font-weight:800
 .site-header .wrap { display:flex; align-items:center; justify-content:space-between; gap:var(--space-4); }
 .wordmark { display:inline-flex; align-items:center; gap:10px; color:var(--deep); font-family:var(--font-display); font-weight:800; letter-spacing:-0.01em; text-decoration:none; font-size:20px; }
 .wordmark svg { width:32px; height:32px; flex:none; }
-.mark-disc { fill:var(--mark-disc); } .mark-accent { fill:var(--mark-accent); stroke:var(--mark-accent); } .mark-line { stroke:var(--mark-line); }
+.mark-sky { fill:var(--mark-sky); } .mark-sea { fill:var(--mark-sea); } .mark-gap { fill:var(--mark-gap); }
 .site-nav a { color:var(--muted); text-decoration:none; margin-left:var(--space-5); font-size:var(--text-sm); }
 .site-nav a:hover { color:var(--ink); }
 @media (max-width:560px) {

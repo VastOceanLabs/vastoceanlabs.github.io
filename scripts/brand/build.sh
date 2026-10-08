@@ -1,6 +1,8 @@
 #!/bin/sh
 # Rebuild every logo and icon file from source (decisions D-03, D-04).
-#   pip install fonttools brotli uharfbuzz pillow
+#   pip install fonttools brotli uharfbuzz pillow   (+ potracer numpy to re-trace)
+# Re-trace the mark only when source/mark-source.webp changes:
+#   python3 scripts/brand/trace_mark.py
 #   npm install playwright   (anywhere on NODE_PATH; needs a Chromium)
 set -e
 cd "$(dirname "$0")/../.."

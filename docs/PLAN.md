@@ -100,7 +100,9 @@ Needs: D-03 (studio logo), D-04 (typeface). Also settled D-12 (palette).
 - Finalise design tokens (colour, type scale, spacing) in `site.css`.
 - Social share image for the home page (1200×630), wired up as `og:image`
   with a `page.og_image` front-matter override.
-- `scripts/brand/build.sh` regenerates every logo and icon file.
+- `scripts/brand/build.sh` regenerates every logo and icon file from the
+  traced mark (`scripts/brand/trace_mark.py`, source artwork in
+  `scripts/brand/source/`).
 
 ### S4 — Content and app page
 Needs: D-02 (copy sign-off), D-05 (contact email), D-06 (about content).

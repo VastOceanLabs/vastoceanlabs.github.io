@@ -1,11 +1,14 @@
 """Write the Vast Ocean Labs logo SVGs into assets/img/ (decision D-03).
 
-The mark is drawn here as plain SVG; the wordmark is Nunito ExtraBold (D-04),
-converted to outlines so the logo files need no font.
+The mark comes from the user's artwork, traced by trace_mark.py; the wordmark
+is Nunito ExtraBold (D-04), converted to outlines so the logo files need no
+font. Also writes _includes/logo-mark.svg, the inline copy the header uses,
+coloured by CSS classes so it follows the colour scheme.
 
     pip install fonttools brotli uharfbuzz
     python3 scripts/brand/make_logo.py
 """
+import json
 import os
 import uharfbuzz as hb
 from fontTools.ttLib import TTFont
@@ -17,18 +20,19 @@ ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 IMG = os.path.join(ROOT, 'assets', 'img')
 FONT = os.path.join(ROOT, 'assets', 'fonts', 'nunito-latin-wght-normal.woff2')
 
-# Palette (D-09, revised in S3). Keep in step with the tokens in assets/css/site.css.
-DEEP, SKY, CREAM = '#0B3A52', '#8EBFD6', '#FAF6F0'
-DARK_DEEP, DARK_INK = '#24597A', '#D3E6EF'   # mark disc + text on dark backgrounds
+# Palette (D-12). Keep in step with the --mark-* tokens in assets/css/site.css.
+SKY, SEA, CREAM = '#8EBFD6', '#0B3A52', '#FAF6F0'
+DARK_SEA, DARK_INK = '#24597A', '#D3E6EF'   # sea + text on dark backgrounds
+
+# Sky and sea shapes traced from the user's artwork by trace_mark.py.
+PATHS = json.load(open(os.path.join(os.path.dirname(__file__), 'source', 'mark-paths.json')))
 
 
-def mark(stroke=4.4, disc=DEEP, accent=SKY, line=CREAM):
-    """Sun on the horizon over one wave, in a 64x64 disc."""
-    return (f'<circle cx="32" cy="32" r="32" fill="{disc}"/>'
-            f'<path d="M21,31a11,11 0 0 1 22,0z" fill="{accent}"/>'
-            f'<path d="M10,31h44" stroke="{line}" stroke-width="{stroke}" stroke-linecap="round"/>'
-            f'<path d="M14,44q4.5,-4.6 9,0t9,0t9,0t9,0" fill="none" stroke="{accent}" '
-            f'stroke-width="{stroke}" stroke-linecap="round"/>')
+def mark(sky=SKY, sea=SEA, gap=CREAM):
+    """Sun setting over the sea, in a 64x64 disc. The sun, horizon and wave
+    lines are gaps between the shapes, filled by a disc of `gap` behind them."""
+    return (f'<circle cx="32" cy="32" r="31.6" fill="{gap}"/>'
+            f'<path fill="{sky}" d="{PATHS["sky"]}"/><path fill="{sea}" d="{PATHS["sea"]}"/>')
 
 
 def svg(w, h, body, title):
@@ -61,18 +65,21 @@ def font_bytes(font):
 
 def main():
     name = 'Vast Ocean Labs'
-    # Mark, alone (also the header logo and the basis for the favicons).
+    # Mark, alone (also the favicon).
     open(f'{IMG}/logo-mark.svg', 'w').write(svg(64, 64, mark(), name))
-    # Favicon: heavier strokes so it survives 16px.
-    open(f'{IMG}/favicon.svg', 'w').write(svg(64, 64, mark(stroke=5.6), name))
+    open(f'{IMG}/favicon.svg', 'w').write(svg(64, 64, mark(), name))
+    inline = (mark(sky='SKY', sea='SEA', gap='GAP').replace('fill="GAP"', 'class="mark-gap"')
+              .replace('fill="SKY"', 'class="mark-sky"').replace('fill="SEA"', 'class="mark-sea"'))
+    open(os.path.join(ROOT, '_includes', 'logo-mark.svg'), 'w').write(
+        f'<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">{inline}</svg>\n')
     # Horizontal lockup: 64-unit mark, 18-unit gap, wordmark cap height ~28.
     size = 40
     d, width, cap = wordmark(name, size, 82, 0)
     baseline = 32 + cap / 2
     d, width, cap = wordmark(name, size, 82, baseline)
     w = 82 + width + 2
-    for suffix, disc, ink in (('', DEEP, DEEP), ('-dark', DARK_DEEP, DARK_INK)):
-        body = mark(disc=disc) + f'<path fill="{ink}" d="{d}"/>'
+    for suffix, sea, ink in (('', SEA, SEA), ('-dark', DARK_SEA, DARK_INK)):
+        body = mark(sea=sea) + f'<path fill="{ink}" d="{d}"/>'
         open(f'{IMG}/logo{suffix}.svg', 'w').write(svg(w, 64, body, name))
     print(f'logo lockup {w:.0f}x64')
 
