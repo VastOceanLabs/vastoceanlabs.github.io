@@ -5,14 +5,11 @@
 - **Milestone:** B — Brand and content. S3 done; S4 next.
 - **Last session:** S3 — Brand identity (done)
 - **Next session:** S4 — Content and app page. See [PLAN.md](PLAN.md#s4--content-and-app-page).
-- **Start S4 from:** `claude/keen-edison-jpo2qa` (S3's branch). It is built on
-  PR 1's branch because PR 1 was still open when S3 started. If PR 1 has been
-  merged by then, still start from `claude/keen-edison-jpo2qa`; PR 2 then
-  shows only milestone B.
-- **Open PRs:** [PR 1 — Milestone A](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1)
-  (not merged at the end of S3). If it is still open when S4 ends, PR 2 also
-  carries milestone A; say so in its description, or ask the user to merge
-  PR 1 first.
+- **Start S4 from:** `claude/keen-edison-jpo2qa` (S3's branch, which already
+  has `main` merged in).
+- **Open PRs:** none. [PR 1 — Milestone A](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1)
+  was merged into `main` after S3, so PR 2 (opened at the end of S4) carries
+  milestone B only.
 
 ## Handoff to S4
 
@@ -86,4 +83,4 @@
 |---|---|---|---|---|
 | S1 | 2026-10-08 | `claude/gifted-galileo-lof422` | Home page first draft; build plan, decision log, status docs, CLAUDE.md; README fixed for this repo | PR 1 |
 | S2 | 2026-10-08 | `claude/gifted-galileo-lof422` | Jekyll structure: layouts, includes, `site.css` tokens, `apps.yml`/`navigation.yml`; policy pages on the site layout; mobile tables; local build script. Home page pixel-identical to S1; protected URLs byte-identical | [PR 1](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1) |
-| S3 | 2026-10-08 | `claude/keen-edison-jpo2qa` (from PR 1 branch) | Studio brand: user's sunset-over-sea mark, traced and recoloured, + Nunito wordmark (D-03; replaced the first drawn mark the same day), self-hosted Nunito headings (D-04), deeper ocean palette (D-12, fixes AA contrast), type and spacing tokens, favicons, apple-touch icon, 1200×630 share image as `og:image`; `scripts/brand/` generator. Protected URLs identical to S2; no horizontal scroll at 1280/390 light/dark | — (PR 2 after S4) |
+| S3 | 2026-10-08 | `claude/keen-edison-jpo2qa` (from PR 1 branch) | Studio brand: user's sunset-over-sea mark, traced and recoloured, + Nunito wordmark (D-03; replaced the first drawn mark the same day), self-hosted Nunito headings (D-04), deeper ocean palette (D-12, fixes AA contrast), type and spacing tokens, favicons, apple-touch icon, 1200×630 share image as `og:image`; `scripts/brand/` generator. Protected URLs identical to S2; no horizontal scroll at 1280/390 light/dark | — (PR 2 after S4). PR 1 merged after S3; `main` merged into this branch |
