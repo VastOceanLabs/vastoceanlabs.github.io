@@ -7,7 +7,7 @@ supersedes it instead.
 
 | ID | Decision | Status | Needed by |
 |---|---|---|---|
-| D-01 | Site tooling: Jekyll on GitHub Pages | Decided (S1, proposed; user can override) | S2 |
+| D-01 | Site tooling: Jekyll on GitHub Pages | Decided (S2, user confirmed) | — |
 | D-02 | Home page copy sign-off | Open | S4 |
 | D-03 | Studio logo / wordmark | Open | S3 |
 | D-04 | Typeface | Open | S3 |
@@ -17,9 +17,10 @@ supersedes it instead.
 | D-08 | Link-check CI on PRs | Open | S5 |
 | D-09 | Visual direction: reuse re-direct palette (cream/teal) for the studio | Decided (S1, proposed) | — |
 | D-10 | One PR per milestone; sessions stack branches | Decided (S1, user) | — |
+| D-11 | Keep GitHub Pages' default theme enabled (don't set `theme`) | Decided (S2) | — |
 
 ## D-01 — Jekyll on GitHub Pages
-**Decided in S1 (proposed by Claude; user may override before S2).**
+**Proposed in S1; confirmed by the user at the start of S2.**
 GitHub Pages already runs Jekyll on this repo (`_config.yml` exists), so
 layouts, includes and data files cost no build step, no CI and no hosting
 change. It gives shared header/footer, one data file per app, and a blog path
@@ -68,3 +69,12 @@ its own identity separate from its first app.
 Decided by the user in S1: work through planned sessions in order, update the
 docs at the end of each session, and open PRs occasionally (one per
 milestone).
+
+## D-11 — GitHub Pages default theme
+**Decided in S2.** With no `theme` in `_config.yml`, GitHub Pages applies its
+Primer theme. Our own `_layouts/default.html` and `page.html` override the
+theme's layouts, so Primer no longer styles anything; it only still writes an
+unused `/assets/css/style.css`. Setting `theme: null` would remove that file,
+but how Pages treats it can't be checked locally, so it is left alone to keep
+the live build predictable. Don't name our stylesheet `style.css` (it would
+clash); ours is `site.css`.

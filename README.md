@@ -17,6 +17,22 @@ re-direct Android app. Their paths must not change:
 | `/re-direct/privacy-policy.html` | Privacy policy URL for the Play Console (rendered from the `.md`). |
 | `/re-direct/accessibility.html` | Accessibility-service disclosure URL for the Play Console. |
 
+## Building locally
+
+GitHub Pages builds the site from `main` with Jekyll; there is no build step
+to run before pushing. To preview or check a change locally (Ruby required):
+
+```
+bundle config set --local path vendor && bundle install   # first time
+scripts/build.sh          # build into _site/
+scripts/build.sh serve    # serve on http://127.0.0.1:4000
+```
+
+The script mirrors GitHub Pages (same gem, default plugins and theme) and works
+offline. Layout of the source: see "Site architecture" in
+[`docs/PLAN.md`](docs/PLAN.md). To add an app, add an entry to
+`_data/apps.yml` and a folder for its pages.
+
 ## The host must match the app
 
 The app is built for **`vastoceanlabs.github.io`**. That value lives in one

@@ -1,0 +1,20 @@
+{%- comment -%} <head> contents shared by every page. Pages can set title and description in front matter. {%- endcomment -%}
+{%- if page.title and page.url != "/" -%}
+  {%- assign title = page.title | append: " | " | append: site.title -%}
+{%- else -%}
+  {%- assign title = site.title -%}
+{%- endif -%}
+{%- assign description = page.description | default: site.description | strip_newlines | strip -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ title | escape }}</title>
+<meta name="description" content="{{ description | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:title" content="{{ page.og_title | default: title | escape }}">
+<meta property="og:description" content="{{ page.og_description | default: description | escape }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta name="theme-color" content="#FAF6F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161B1B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="{{ '/assets/img/apps/re-direct.png' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">

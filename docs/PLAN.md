@@ -33,29 +33,36 @@ sooner (e.g. a fix to a policy page or `/r/`).
 **Handoff.** Every session ends by updating STATUS.md (see `CLAUDE.md`), so
 the next session can start without this conversation.
 
-## Target architecture (set up in S2)
+## Site architecture (set up in S2)
 
 Built for growth without a rewrite. GitHub Pages builds Jekyll natively, so
 there is no build step or CI to maintain (D-01).
 
 ```
-_config.yml            site settings, plugins, exclusions
-_data/apps.yml         one entry per app: name, tagline, platform, store link,
-                       icon, policy links  -> home page cards + app pages
-_layouts/default.html  shared shell: <head>, header, footer
-_layouts/app.html      app detail page (S4)
-_includes/             header, footer, app-card, head meta
-assets/css/site.css    design tokens (colours, type, spacing) + components
-assets/img/            logo, favicons, share image, app screenshots
-index.html             home page (uses default layout)
-<app-slug>/            one folder per app: index.html + its policy pages
-r/                     re-direct prompt fallback (standalone, unchanged)
-.well-known/           App Links (unchanged)
-docs/                  planning docs (not published)
+_config.yml              site settings (title, url, contact email), exclusions,
+                         default "page" layout for Markdown pages
+_data/apps.yml           one entry per app -> home page cards + footer links
+_data/navigation.yml     header navigation
+_layouts/default.html    shared shell: head, header, <main>, footer
+_layouts/page.html       Markdown/text pages (the policies); wraps in .prose
+_layouts/app.html        app detail page (added in S4)
+_includes/head.html      <head>: title, description, canonical, Open Graph
+_includes/header.html    skip link, wordmark, nav
+_includes/footer.html    copyright + footer links from apps.yml
+_includes/app-card.html  one app card, rendered from apps.yml
+assets/css/site.css      design tokens at the top, then components
+assets/img/apps/         app icons (512px PNG); logo/favicons go in assets/img/ (S3)
+index.html               home page content (front matter: layout default)
+<app-slug>/              one folder per app: its policy pages (+ index.html, S4)
+r/                       re-direct prompt fallback (standalone, untouched)
+.well-known/             App Links (untouched)
+docs/, scripts/          planning docs and the local build script (not published)
 ```
-
 Adding a second app later = one `_data/apps.yml` entry + one folder. Adding a
 blog later = a `_posts/` folder. Neither needs layout changes.
+
+**Building locally:** `scripts/build.sh` (see README). It mirrors GitHub
+Pages, including its default plugins and theme, and works offline.
 
 ## Milestone A — Foundations  → PR 1
 
@@ -65,7 +72,7 @@ blog later = a `_posts/` folder. Neither needs layout changes.
 - Planning docs: `CLAUDE.md`, `docs/PLAN.md`, `docs/DECISIONS.md`,
   `docs/STATUS.md`. README corrected for this repo.
 
-### S2 — Site structure (Jekyll)
+### S2 — Site structure (Jekyll) ✅
 Needs: D-01.
 - Move shared CSS to `assets/css/site.css` with the design tokens.
 - Create `_layouts/default.html` and `_includes/` (head, header, footer).
