@@ -8,7 +8,7 @@
 - **Start S3 from:** `main`, once PR 1 is merged. If PR 1 is still open,
   ask the user to merge it first (or, if they prefer, start from
   `claude/gifted-galileo-lof422`; the milestone B PR then also carries A).
-- **Open PRs:** PR 1 — Milestone A (see session log for the link).
+- **Open PRs:** [PR 1 — Milestone A](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1)
 
 ## Handoff to S3
 
@@ -58,4 +58,4 @@
 | Session | Date | Branch | Summary | PR |
 |---|---|---|---|---|
 | S1 | 2026-10-08 | `claude/gifted-galileo-lof422` | Home page first draft; build plan, decision log, status docs, CLAUDE.md; README fixed for this repo | PR 1 |
-| S2 | 2026-10-08 | `claude/gifted-galileo-lof422` | Jekyll structure: layouts, includes, `site.css` tokens, `apps.yml`/`navigation.yml`; policy pages on the site layout; mobile tables; local build script. Home page pixel-identical to S1; protected URLs byte-identical | PR 1 |
+| S2 | 2026-10-08 | `claude/gifted-galileo-lof422` | Jekyll structure: layouts, includes, `site.css` tokens, `apps.yml`/`navigation.yml`; policy pages on the site layout; mobile tables; local build script. Home page pixel-identical to S1; protected URLs byte-identical | [PR 1](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1) |
