@@ -51,12 +51,16 @@ _includes/header.html    skip link, wordmark, nav
 _includes/footer.html    copyright + footer links from apps.yml
 _includes/app-card.html  one app card, rendered from apps.yml
 assets/css/site.css      design tokens at the top, then components
-assets/img/apps/         app icons (512px PNG); logo/favicons go in assets/img/ (S3)
+assets/img/              logo SVGs, favicon.svg, apple-touch icon, og-default.png (S3)
+assets/img/apps/         app icons (512px PNG)
+assets/fonts/            self-hosted Nunito (D-04)
+favicon.ico              root, so browsers' automatic /favicon.ico request works
 index.html               home page content (front matter: layout default)
 <app-slug>/              one folder per app: its policy pages (+ index.html, S4)
 r/                       re-direct prompt fallback (standalone, untouched)
 .well-known/             App Links (untouched)
-docs/, scripts/          planning docs and the local build script (not published)
+docs/, scripts/          planning docs, the local build script and scripts/brand/
+                         (logo/icon generator) — not published
 ```
 Adding a second app later = one `_data/apps.yml` entry + one folder. Adding a
 blog later = a `_posts/` folder. Neither needs layout changes.
@@ -90,11 +94,13 @@ updated. **Open PR 1** (S1 + S2) into `main`.
 
 ## Milestone B — Brand and content  → PR 2
 
-### S3 — Brand identity
-Needs: D-03 (studio logo), D-04 (typeface).
+### S3 — Brand identity ✅
+Needs: D-03 (studio logo), D-04 (typeface). Also settled D-12 (palette).
 - Studio logo/wordmark (SVG), favicon set, apple-touch icon.
 - Finalise design tokens (colour, type scale, spacing) in `site.css`.
-- Social share image for the home page (1200×630).
+- Social share image for the home page (1200×630), wired up as `og:image`
+  with a `page.og_image` front-matter override.
+- `scripts/brand/build.sh` regenerates every logo and icon file.
 
 ### S4 — Content and app page
 Needs: D-02 (copy sign-off), D-05 (contact email), D-06 (about content).
