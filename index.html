@@ -1,13 +1,190 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vast Ocean Labs</title>
-<style>body{margin:0;background:#FAF6F0;color:#2A2F2F;font:16px/1.6 system-ui,sans-serif}main{max-width:640px;margin:0 auto;padding:48px 16px}a{color:#3F6E6A}h1{color:#0D474C}</style>
-</head><body><main>
-<h1>re-direct</h1>
-<p>A calm Android app for taking a short reset and getting back to the right task. By Vast Ocean Labs.</p>
-<ul>
-<li><a href="https://play.google.com/store/apps/details?id=com.finepointrehab.redirect">Get it on Google Play</a></li>
-<li><a href="re-direct/privacy-policy.html">Privacy policy</a></li>
-<li><a href="re-direct/accessibility.html">Accessibility service disclosure</a></li>
-</ul>
-</main></body></html>
+<meta name="description" content="Vast Ocean Labs makes small, calm software that respects your attention. Our first app is re-direct, a local-first Android app for taking a short reset.">
+<meta property="og:title" content="Vast Ocean Labs">
+<meta property="og:description" content="Small, calm software that respects your attention.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vastoceanlabs.github.io/">
+<meta name="theme-color" content="#FAF6F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161B1B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="r/og.png">
+<style>
+  :root {
+    --bg:#FAF6F0; --surface:#FFFFFF; --ink:#2A2F2F; --muted:#5B6262;
+    --brand:#5E8B87; --deep:#0D474C; --foam:#B6D4CE; --line:#E6DFD4;
+    --wave-1:#D7E7E3; --wave-2:#B6D4CE; --wave-3:#8FB3AF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#161B1B; --surface:#1F2625; --ink:#E8E4DD; --muted:#A9B0AE;
+      --brand:#8FB3AF; --deep:#C9DEDB; --foam:#2E4442; --line:#2C3433;
+      --wave-1:#1C2726; --wave-2:#223634; --wave-3:#2A4744;
+    }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color:var(--brand); }
+  a:focus-visible, .btn:focus-visible { outline:3px solid var(--brand); outline-offset:3px; border-radius:6px; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 16px; }
+
+  /* Header */
+  header { padding:20px 0; }
+  header .wrap { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .wordmark { color:var(--deep); font-weight:700; letter-spacing:-0.01em; text-decoration:none; font-size:18px; }
+  nav a { color:var(--muted); text-decoration:none; margin-left:20px; font-size:15px; }
+  nav a:hover { color:var(--ink); }
+  @media (max-width:560px) {
+    header .wrap { flex-direction:column; align-items:flex-start; gap:8px; }
+    nav a { margin:0 18px 0 0; }
+  }
+
+  /* Hero */
+  .hero { padding:72px 0 0; }
+  .eyebrow { color:var(--brand); font-weight:600; font-size:14px; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 16px; }
+  .hero h1 { color:var(--deep); font-size:clamp(36px, 6vw, 60px); line-height:1.08; letter-spacing:-0.02em; margin:0 0 20px; max-width:14ch; }
+  .hero p.lede { color:var(--muted); font-size:clamp(18px, 2.2vw, 21px); max-width:36ch; margin:0 0 32px; }
+  .waves { display:block; width:100%; height:120px; margin-top:56px; margin-bottom:-1px; }
+
+  /* Sections */
+  section { padding:72px 0; }
+  .band { background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  h2 { color:var(--deep); font-size:28px; line-height:1.2; letter-spacing:-0.01em; margin:0 0 8px; }
+  .section-intro { color:var(--muted); margin:0 0 36px; max-width:52ch; }
+
+  /* App card */
+  .app { display:grid; grid-template-columns:120px 1fr; gap:28px; align-items:start; }
+  .app img { width:120px; height:120px; border-radius:28px; display:block; }
+  .app h3 { color:var(--deep); font-size:24px; margin:0 0 4px; }
+  .app .tag { color:var(--muted); font-size:14px; margin:0 0 12px; }
+  .app p { margin:0 0 16px; max-width:56ch; }
+  .app ul.points { margin:0 0 24px; padding-left:20px; color:var(--muted); }
+  .app ul.points li { margin:4px 0; }
+  .actions { display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center; }
+  .btn { display:inline-block; padding:12px 22px; border-radius:999px; font-weight:600; text-decoration:none; background:var(--brand); color:#fff; }
+  @media (prefers-color-scheme: dark) { .btn { color:#0F1514; } }
+  .btn:hover { filter:brightness(1.06); }
+  .small-links a { font-size:15px; margin-right:16px; }
+  @media (max-width:560px) {
+    .app { grid-template-columns:1fr; gap:20px; }
+    .app img { width:96px; height:96px; border-radius:22px; }
+  }
+
+  /* Principles */
+  .grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
+  @media (max-width:640px) { .grid { grid-template-columns:1fr; } }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px; }
+  .card h3 { color:var(--deep); font-size:18px; margin:0 0 8px; }
+  .card p { color:var(--muted); margin:0; font-size:16px; }
+
+  /* Contact + footer */
+  .contact p { max-width:52ch; }
+  footer { padding:32px 0 48px; color:var(--muted); font-size:14px; border-top:1px solid var(--line); }
+  footer .wrap { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; }
+  footer a { color:var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="wordmark" href="/">Vast Ocean Labs</a>
+    <nav aria-label="Main">
+      <a href="#apps">Apps</a>
+      <a href="#principles">How we build</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="eyebrow">Vast Ocean Labs</p>
+      <h1 id="hero-title">Calm software for a noisy world.</h1>
+      <p class="lede">We make small, focused apps that respect your attention, keep your data on your device, and get out of the way.</p>
+      <a class="btn" href="#apps">See our apps</a>
+    </div>
+    <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="var(--wave-1)" d="M0,64 C240,24 480,104 720,64 C960,24 1200,104 1440,64 L1440,120 L0,120 Z"/>
+      <path fill="var(--wave-2)" d="M0,84 C200,54 440,114 720,84 C1000,54 1240,114 1440,84 L1440,120 L0,120 Z"/>
+      <path fill="var(--surface)" d="M0,104 C260,84 520,124 720,104 C920,84 1180,124 1440,104 L1440,120 L0,120 Z"/>
+    </svg>
+  </section>
+
+  <section id="apps" class="band" aria-labelledby="apps-title">
+    <div class="wrap">
+      <h2 id="apps-title">Apps</h2>
+      <p class="section-intro">One app so far, built carefully.</p>
+
+      <article class="app" aria-labelledby="redirect-title">
+        <img src="r/og.png" alt="re-direct app icon: a calm face with an arrow curving back over a cloud" width="120" height="120">
+        <div>
+          <h3 id="redirect-title">re-direct</h3>
+          <p class="tag">Android</p>
+          <p>When you're tired or distracted, re-direct helps you take a short reset and then get back to the right task. Pick a break (breathe, stretch, look away, a moment of quiet) and it brings you back to what you were working on.</p>
+          <ul class="points">
+            <li>No account, no ads, no analytics</li>
+            <li>Everything stays on your phone; the app doesn't request internet access</li>
+            <li>Send a friend a gentle nudge to take a break</li>
+          </ul>
+          <div class="actions">
+            <a class="btn" href="https://play.google.com/store/apps/details?id=com.finepointrehab.redirect">Get it on Google Play</a>
+            <span class="small-links">
+              <a href="re-direct/privacy-policy.html">Privacy policy</a>
+              <a href="re-direct/accessibility.html">Accessibility disclosure</a>
+            </span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="principles" aria-labelledby="principles-title">
+    <div class="wrap">
+      <h2 id="principles-title">How we build</h2>
+      <p class="section-intro">A few rules we hold ourselves to.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Local-first</h3>
+          <p>Your data lives on your device. If an app doesn't need a server, it doesn't get one.</p>
+        </div>
+        <div class="card">
+          <h3>No tracking</h3>
+          <p>No advertising, analytics or third-party SDKs watching what you do.</p>
+        </div>
+        <div class="card">
+          <h3>Calm by design</h3>
+          <p>Fewer notifications, gentler defaults, and nothing built to keep you scrolling.</p>
+        </div>
+        <div class="card">
+          <h3>Plain-language policies</h3>
+          <p>Privacy policies you can actually read, updated before anything changes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="band contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">Get in touch</h2>
+      <p>Questions, feedback or bug reports are always welcome. Email <a href="mailto:e.joyce01@gmail.com">e.joyce01@gmail.com</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year">2026</span> Vast Ocean Labs</span>
+    <span><a href="re-direct/privacy-policy.html">re-direct privacy policy</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
