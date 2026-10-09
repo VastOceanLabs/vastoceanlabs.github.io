@@ -45,14 +45,15 @@ _data/apps.yml           one entry per app -> home page cards + footer links
 _data/navigation.yml     header navigation
 _layouts/default.html    shared shell: head, header, <main>, footer
 _layouts/page.html       Markdown/text pages (the policies); wraps in .prose
-_layouts/app.html        app detail page (added in S4)
+_layouts/app.html        app detail page (S4): hero, screenshots, then the page body
 _includes/head.html      <head>: title, description, canonical, Open Graph
 _includes/header.html    skip link, wordmark, nav
 _includes/footer.html    copyright + footer links from apps.yml
 _includes/app-card.html  one app card, rendered from apps.yml
+_includes/store-button.html  store button, or "coming soon" text (D-13)
 assets/css/site.css      design tokens at the top, then components
 assets/img/              logo SVGs, favicon.svg, apple-touch icon, og-default.png (S3)
-assets/img/apps/         app icons (512px PNG)
+assets/img/apps/         app icons (512px PNG); <slug>/ phone screenshots (WebP)
 assets/fonts/            self-hosted Nunito (D-04)
 favicon.ico              root, so browsers' automatic /favicon.ico request works
 index.html               home page content (front matter: layout default)
@@ -62,7 +63,7 @@ r/                       re-direct prompt fallback (standalone, untouched)
 docs/, scripts/          planning docs, the local build script and scripts/brand/
                          (logo/icon generator) — not published
 ```
-Adding a second app later = one `_data/apps.yml` entry + one folder. Adding a
+Adding a second app later = one `_data/apps.yml` entry + one folder (policies + an `index.html` with `layout: app`). Adding a
 blog later = a `_posts/` folder. Neither needs layout changes.
 
 **Building locally:** `scripts/build.sh` (see README). It mirrors GitHub
@@ -104,8 +105,9 @@ Needs: D-03 (studio logo), D-04 (typeface). Also settled D-12 (palette).
   traced mark (`scripts/brand/trace_mark.py`, source artwork in
   `scripts/brand/source/`).
 
-### S4 — Content and app page
+### S4 — Content and app page ✅
 Needs: D-02 (copy sign-off), D-05 (contact email), D-06 (about content).
+All three decided at the start of S4; also D-13 (store button).
 - Final home page copy, signed off by the user.
 - About section (or page, per D-06).
 - re-direct app page at `/re-direct/` using `_layouts/app.html`: description,

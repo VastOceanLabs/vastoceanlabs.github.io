@@ -8,11 +8,12 @@ supersedes it instead.
 | ID | Decision | Status | Needed by |
 |---|---|---|---|
 | D-01 | Site tooling: Jekyll on GitHub Pages | Decided (S2, user confirmed) | — |
-| D-02 | Home page copy sign-off | Open | S4 |
+| D-02 | Home page copy: S1 copy with three principles reworded | Decided (S4, user) | — |
 | D-03 | Studio logo / wordmark: user's sunset-over-the-sea mark + Nunito wordmark | Decided (S3, user) | — |
 | D-04 | Typeface: Nunito (self-hosted) for headings, system fonts for text | Decided (S3, user) | — |
-| D-05 | Public contact email | Open | S4 |
-| D-06 | About: section on home page or separate page; what it says | Open | S4 |
+| D-05 | Public contact email: vastoceanlabs@gmail.com | Decided (S4, user) | — |
+| D-06 | About: short home page section, no personal name | Decided (S4, user) | — |
+| D-13 | Play button shows "Coming soon" until the listing is public | Decided (S4, user) | — |
 | D-07 | Custom domain or stay on vastoceanlabs.github.io | Open | S6 |
 | D-08 | Link-check CI on PRs | Open | S5 |
 | D-09 | Visual direction: reuse re-direct palette (cream/teal) for the studio | Superseded by D-12 | — |
@@ -31,9 +32,19 @@ Constraint: only GitHub Pages' whitelisted plugins (e.g. `jekyll-sitemap`,
 `jekyll-seo-tag`).
 
 ## D-02 — Home page copy
-The S1 draft copy ("Calm software for a noisy world", the four principles) was
-written by Claude. The principles are promises about the whole studio; the user
-must confirm they are happy to make them.
+**Decided by the user in S4.** The S1 draft (written by Claude) was checked
+against the app. Hero, lede, Apps intro and "Local-first" stay as they were.
+Three principles were reworded so they stay true of re-direct, which has an
+in-app Insights (store listing: "Analytics") screen and a bounded
+"Scroll & return" reset:
+- No tracking: "No ads, no tracking, and nothing about you sent anywhere: no
+  analytics or third-party SDKs phoning home."
+- Calm by design: "Optional reminders that back off when you ignore them,
+  gentle defaults, and nothing built to keep you scrolling."
+- Plain-language policies: "Privacy policies with a plain-English summary up
+  top, and updated before anything changes."
+The re-direct card point "No account, no ads, no analytics" became "…no
+tracking" for the same reason.
 
 ## D-03 — Studio logo
 **Decided by the user in S3.** The mark is the user's own artwork: a disc
@@ -64,13 +75,30 @@ this; system fonts only; Inter for headings. The logo files use Nunito
 converted to outlines, so they need no font.
 
 ## D-05 — Contact email
-The S1 draft shows the personal address already published in the privacy
-policy. Option: a dedicated address (e.g. hello@ on a custom domain, or a
-separate Gmail). If it changes, the app repo's privacy policy should change
-too.
+**Decided by the user in S4:** `vastoceanlabs@gmail.com` (set as `email` in
+`_config.yml`; the home page Contact section uses it). Options offered were
+keeping the personal address or a dedicated one.
+Follow-up in the app repo (not this repo): the policy pages still show the
+old address until `docs/PRIVACY_POLICY.md` (header and Contact),
+`docs/ACCESSIBILITY_DISCLOSURE.md` (Contact) and
+`docs/PLAY_CONSOLE_SUBMISSION.md` are changed, `scripts/sync_web_docs.js` is
+re-run and the generated `re-direct/*.md` are copied here. The Play Console
+developer contact email should change too.
 
 ## D-06 — About
-Section on the home page vs `/about/`; whether it names the founder.
+**Decided by the user in S4:** a short "About" section on the home page
+(`#about`, in the header nav), not a separate page, and it does not name the
+founder. It says Vast Ocean Labs is a one-person studio, which the Play
+listing already says ("Built by one person"). Options offered were: this; the
+same section naming the user; a separate `/about/` page.
+
+## D-13 — Store button before launch
+**Decided by the user in S4:** re-direct isn't publicly on Google Play yet
+(testing), so the site shows "Coming soon to Google Play" as text, not a
+link. `_data/apps.yml` keeps the store URL with `store.live: false`; set
+`live: true` when the listing is public and the cards and app page switch
+to the "Get it on Google Play" button. The protected `/r/` page still links
+to Google Play; left untouched.
 
 ## D-07 — Custom domain
 App Links only work from the domain root and the app's `promptHost` is
