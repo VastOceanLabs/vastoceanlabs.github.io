@@ -14,7 +14,7 @@ supersedes it instead.
 | D-05 | Public contact email: vastoceanlabs@gmail.com | Decided (S4, user) | — |
 | D-06 | About: short home page section, no personal name | Decided (S4, user) | — |
 | D-13 | Play button shows "Coming soon" until the listing is public | Decided (S4, user) | — |
-| D-07 | Custom domain or stay on vastoceanlabs.github.io | Open | S6 |
+| D-07 | Launch on vastoceanlabs.github.io; custom domain revisited later | Decided (S6, user) | — |
 | D-08 | CI on PRs: build + protected-URL check (no full link check) | Decided (S5, user) | — |
 | D-09 | Visual direction: reuse re-direct palette (cream/teal) for the studio | Superseded by D-12 | — |
 | D-10 | One PR per milestone; sessions stack branches | Decided (S1, user) | — |
@@ -103,9 +103,28 @@ to the "Get it on Google Play" button. The protected `/r/` page still links
 to Google Play; left untouched.
 
 ## D-07 — Custom domain
-App Links only work from the domain root and the app's `promptHost` is
-`vastoceanlabs.github.io`. Moving to a custom domain needs an app rebuild, and
-links already sent will only reach the fallback page. Decide before launch.
+**Decided by the user in S6:** launch on `vastoceanlabs.github.io`. Custom
+domains are to be looked at later, once things are clearer. Nothing changes
+for now: App Links, the app's `promptHost`, links already sent and the Play
+Console policy URLs all stay as they are.
+Options offered were:
+- stay on github.io
+- move the whole site to a custom domain, timed with an app release that
+  changes `promptHost`
+- give only the studio site a custom domain (in a separate repo) and keep
+  this repo on github.io for `/r/`, App Links and the policies
+
+Facts for when it comes back:
+- Once this root Pages repo has a custom domain, GitHub 301-redirects every
+  `vastoceanlabs.github.io` URL to it. Android won't verify an
+  `assetlinks.json` that sits behind a redirect. So older app builds stop
+  opening links directly, and links already sent reach the fallback page
+  (the `#f=` fragment survives the redirect).
+- The Play Console policy URLs would need updating too.
+- `url` in `_config.yml` drives canonical URLs, `og:url`, `sitemap.xml` and
+  `robots.txt`.
+
+Record the choice as a new decision that supersedes this one.
 
 ## D-08 — CI on PRs
 **Decided by the user in S5:** build + protected-URL check, no full link

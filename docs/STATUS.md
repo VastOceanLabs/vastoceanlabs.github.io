@@ -2,40 +2,27 @@
 
 ## Now
 
-- **Milestone:** C — Quality and launch. S5 done; S6 next. PR 2 (milestone B)
-  was merged into `main` at the start of S5 at the user's request.
-- **Last session:** S5 — Quality pass (done)
-- **Next session:** S6 — Launch. See [PLAN.md](PLAN.md#s6--launch).
-- **Start S6 from:** `claude/gracious-darwin-8mtg74` (S5's branch, cut from
-  `main` after PR 2). S6 ends milestone C and opens PR 3 from its branch.
-- **Open PRs:** none.
+- **Milestone:** C (Quality and launch). S6 is in progress.
+- **S6 so far:**
+  - D-07 decided: stay on `vastoceanlabs.github.io`.
+  - README has the "Adding an app or a page" guide.
+  - PR 3 (S5 + S6) is open from `claude/funny-hypatia-ad36l3`.
+- **Waiting on:** the "Site check" result on PR 3, then the user's merge,
+  then the live checks.
+- **Open PRs:** PR 3.
 
-## Handoff to S6
+## Handoff (S6 in progress)
 
-- S6 needs D-07 (custom domain or not). Ask at the start. If the domain
-  changes, `url` in `_config.yml` drives canonical URLs, `og:url`,
-  `sitemap.xml` and `robots.txt`; App Links and the app's `promptHost`
-  change too (README).
-- PR 3 is the first run of `.github/workflows/site-check.yml` (D-08) on
-  GitHub. Locally `scripts/check-site.sh` passed. A deliberate
-  `assetlinks.json` change failed as expected, and passed with
-  `ALLOW_PROTECTED_CHANGE=1`. Confirm the workflow is green on the PR.
-  Possible first-run snag: `Gemfile.lock` is gitignored, so
-  `ruby/setup-ruby` (`bundler-cache`) resolves gems fresh.
-- The `protected-change` label doesn't exist in the repo yet. Create it the
-  first time a PR changes `assetlinks.json` or `/r/` on purpose.
-- How to verify (as in S5):
-  - Build with `scripts/build.sh`, then run `scripts/check-site.sh _site
-    <build of main>`.
-  - Serve `_site/` with `python3 -m http.server`.
-  - Screenshot `/`, `/re-direct/`, `/re-direct/privacy-policy.html` and
-    `/404.html` at 1280 and 390px, in light and dark.
-  - Check `scrollWidth == clientWidth`.
-  - S5 also ran axe-core (npm-installed in the scratchpad).
-- Extra live checks for S6:
-  - a missing path serves the custom 404
-  - `/robots.txt` and `/sitemap.xml` load
-  - `/r/` is not in the sitemap
+If this session stops before PR 3 is merged:
+1. Check that "Site check" is green on PR 3.
+2. Ask the user to merge it.
+3. Run the live checks in [PLAN.md](PLAN.md#s6--launch):
+   - home page, `/re-direct/` and both policy pages
+   - `/r/#f=Test`
+   - `assetlinks.json` is valid JSON
+   - a missing path shows the custom 404
+   - `robots.txt` and `sitemap.xml` load, and `/r/` is not in the sitemap
+   - Pages settings are branch `main`, folder `/ (root)`
 
 ## What S5 changed
 
