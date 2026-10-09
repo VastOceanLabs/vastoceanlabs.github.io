@@ -5,13 +5,28 @@
 - **Milestones A, B and C are done.** PR 3 (S5 + S6) was merged into `main`
   on 2026-10-09 at the user's request (merge commit `decd2b5`) and deployed
   by GitHub Pages.
-- **Last session:** S6 (Launch).
-- **Next:** no session is scheduled. Milestone D items are picked up when
-  wanted ([PLAN.md](PLAN.md#milestone-d--growth-as-needed-one-pr-each)).
-  Start each from `main`.
-- **Open PRs:** none.
+- **Last session:** S7 (launch follow-up), branch
+  `claude/cool-albattani-2xye8s`, started from S6's branch.
+- **Open PRs:** PR 4 (S6 docs commit + S7) into `main`. Merging is the
+  user's call.
+- **Next:** once PR 4 is merged, no session is scheduled. Milestone D items
+  are picked up when wanted
+  ([PLAN.md](PLAN.md#milestone-d--growth-as-needed-one-pr-each)). Start each
+  from `main`. If PR 4 is still open, start from its branch instead.
 
 ## Live checks still to do (from S6)
+
+**S7 (2026-10-09): still blocked.** The S7 container couldn't reach the host
+either: curl got a 403 from the egress proxy on CONNECT, and web fetch
+reported the domain as blocked. None of the boxes below are ticked, and no
+results were made up. To run them from a session, add
+`vastoceanlabs.github.io` under the environment's Network access → Allowed
+domains (or pick a broader level), then start a new session. Or check them
+in a browser.
+
+S7 did re-confirm, locally: `.well-known/assetlinks.json` in this branch is
+byte-identical to `main`, and a build of this branch matches a build of
+`main` for `assetlinks.json`, `/r/index.html` and `/r/og.png`.
 
 The S6 session container couldn't reach `vastoceanlabs.github.io`: its
 network policy blocked the host, for both curl and web fetch. What was
@@ -29,11 +44,15 @@ Still to check in a browser, by the user or by a session whose environment
 allows the host:
 - [ ] `/`, `/re-direct/`, `/re-direct/privacy-policy.html` and
       `/re-direct/accessibility.html` load with the new layout.
-- [ ] `/r/#f=Test` shows the fallback page.
-- [ ] `/.well-known/assetlinks.json` loads as JSON.
-- [ ] A missing path, e.g. `/nope`, shows the custom 404.
+- [ ] `/r/#f=Test` shows the fallback page (screenshot at 390px).
+- [ ] `/.well-known/assetlinks.json` is served as valid JSON and is
+      byte-identical to the file in `main`.
+- [ ] A missing path, e.g. `/nope`, shows the custom 404 with HTTP status
+      404.
 - [ ] `/robots.txt` and `/sitemap.xml` load, and `/r/` is not in the
       sitemap.
+- [ ] Live `/` and `/re-direct/` at 1280px and 390px, light and dark, with
+      no horizontal scroll.
 - [ ] Repo → Settings → Pages shows "Deploy from a branch", `main`,
       `/ (root)`. The deploy logs point to this, but the setting itself
       can't be read from the session.
@@ -93,14 +112,17 @@ allows the host:
 - **`protected-change` label:** not created yet (the user didn't ask in S6).
   Create it the first time a PR changes `assetlinks.json` or `/r/` on
   purpose.
-- **Actions on Node 20:** the runs warn that `actions/checkout@v4` (Site
-  check) and Pages' own `upload-artifact@v4` target Node 20, which GitHub has
-  deprecated. They are forced onto Node 24 and still pass. Bump
-  `site-check.yml` to `actions/checkout@v5` in a later PR. The Pages one is
-  GitHub's.
-- **`assetlinks.json` fingerprints:** README, "Fill in fingerprints". Check
-  that the Play app-signing and upload-key SHA-256 values are in, then run the
-  `adb` verification there with a release build.
+- **Actions on Node 20:** `site-check.yml` moved to `actions/checkout@v5`
+  in S7. Pages' own `upload-artifact@v4` warning is GitHub's to fix.
+- **`assetlinks.json` fingerprints (checked in S7, file not changed):** the
+  release entry `com.finepointrehab.redirect` still has the placeholder
+  `REPLACE_WITH_PLAY_APP_SIGNING_KEY_SHA256`. Its second value
+  (`5C:15:…:32:F4`) is a real fingerprint, presumably the upload key. The
+  debug entry has one real fingerprint. Until the Play app-signing SHA-256
+  is in, App Links won't verify for builds installed from Google Play. When
+  the user gives the value, it's a protected change: ask before creating the
+  `protected-change` label. Then run the `adb` verification (README, "Fill
+  in fingerprints") with a release build.
 - **Custom domain (D-07):** deferred. See D-07 for what a move involves.
 
 - **When re-direct goes public on Google Play:** set `store.live: true` in
@@ -150,3 +172,4 @@ allows the host:
 | S4 | 2026-10-09 | `claude/busy-meitner-o4j18j` (from S3) | Copy signed off (D-02: three principles reworded, card point "no tracking"); About section on home, no name (D-06); contact `vastoceanlabs@gmail.com` (D-05); "Coming soon to Google Play" until the listing is public (D-13); `/re-direct/` app page from the store listing and privacy policy, with five screenshots; card links to it. Protected URLs identical to S3; no horizontal scroll at 1280/390 light/dark | PR 2 (S3 + S4) |
 | S5 | 2026-10-09 | `claude/gracious-darwin-8mtg74` (from `main` after PR 2) | PR 2 merged (user). SEO: descriptions for every page, canonical, OG + `twitter:card`, `jekyll-sitemap`, `robots.txt`, `/r/` kept out of the sitemap without editing it (D-15). Custom `404.html`. Accessibility: contrast measured (all AA), keyboard-scrollable screenshot row, axe clean. Performance: no changes needed. CI: build + protected-URL check (D-08). `/re-direct/` keeps `og-default.png` (D-14). Protected URLs identical to `main`; no horizontal scroll at 1280/390 light/dark | — (PR 3 after S6) |
 | S6 | 2026-10-09 | `claude/funny-hypatia-ad36l3` (from S5) | D-07: stay on github.io for now. README guide "Adding an app or a page". PR 3 opened; Site check green on its first GitHub run, no workflow changes. Protected URLs identical to `main`; 16 views with no horizontal scroll. PR 3 merged (user) and deployed by Pages from `main`/root. Live HTTP checks blocked by the container's network policy (listed above) | [PR 3](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/3) |
+| S7 | 2026-10-09 | `claude/cool-albattani-2xye8s` (from S6) | Launch follow-up. Live checks still blocked by the container's network policy (curl proxy 403, web fetch blocked); left unticked. `site-check.yml` → `actions/checkout@v5`, nothing else changed. `assetlinks.json` reviewed: Play app-signing fingerprint is still a placeholder; file not changed. `build.sh` + `check-site.sh _site <main build>` pass; `assetlinks.json`, `/r/index.html`, `/r/og.png` identical to `main` | PR 4 |

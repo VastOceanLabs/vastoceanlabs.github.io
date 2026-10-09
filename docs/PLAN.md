@@ -144,6 +144,22 @@ Done when: live site verified. PR 3 = S5 + S6.
 
 **Milestone C is done** (merged to `main` and deployed).
 
+## Launch follow-up  → PR 4
+
+### S7 — Launch follow-up
+Asked for by the user after Milestone C; one small PR outside the milestone
+rhythm. Started from S6's branch (`main` plus one S6 docs commit).
+- Live checks left over from S6 (STATUS.md). The session container still
+  couldn't reach `vastoceanlabs.github.io` (its network policy blocks the
+  host), so they stay open; no results were made up.
+- `site-check.yml`: `actions/checkout@v4` → `@v5` (Node 20 deprecation).
+  Nothing else in the workflow changed.
+- `assetlinks.json` reviewed, not changed: the release entry still has the
+  `REPLACE_WITH_PLAY_APP_SIGNING_KEY_SHA256` placeholder.
+
+Done when: PR 4 (S6 docs commit + S7) has "Site check" green. Merging is the
+user's call.
+
 ## Milestone D — Growth (as needed, one PR each)
 
 Not scheduled; picked up when wanted. Each is self-contained on the S2
