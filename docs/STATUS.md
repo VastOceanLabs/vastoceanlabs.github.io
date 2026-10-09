@@ -7,12 +7,29 @@
   by GitHub Pages.
 - **Last session:** S7 (launch follow-up), branch
   `claude/cool-albattani-2xye8s`, started from S6's branch.
-- **Open PRs:** PR 4 (S6 docs commit + S7) into `main`. Merging is the
-  user's call.
-- **Next:** once PR 4 is merged, no session is scheduled. Milestone D items
-  are picked up when wanted
-  ([PLAN.md](PLAN.md#milestone-d--growth-as-needed-one-pr-each)). Start each
-  from `main`. If PR 4 is still open, start from its branch instead.
+- **Open PRs:** none. PR 4 (S6 docs commit + S7) was merged into `main`
+  at the user's request at the end of S7.
+- **Next:** S8, launch follow-up 2 (see the to-do list below). Start from
+  `main`. Milestone D items are picked up when wanted
+  ([PLAN.md](PLAN.md#milestone-d--growth-as-needed-one-pr-each)).
+
+## To-do
+
+- [ ] **Play app-signing key fingerprint in `assetlinks.json`** (user
+      supplies it). The release entry `com.finepointrehab.redirect` still
+      has `REPLACE_WITH_PLAY_APP_SIGNING_KEY_SHA256`. Until it's replaced,
+      App Links won't verify for copies installed from Google Play.
+  1. User: Play Console → re-direct → Setup → App signing → copy the
+     "App signing key certificate" SHA-256.
+  2. Session: replace the placeholder with it (keep the upload-key and
+     debug fingerprints). This is a protected change: ask the user before
+     creating the `protected-change` label, then put it on the PR.
+     `check-site.sh` must still pass, and `assetlinks.json` must stay valid
+     JSON.
+  3. After it's merged and deployed: run the `adb` verification with a
+     release build (README, "Fill in fingerprints").
+- [ ] **Live checks** (list below). They need a session whose network
+      policy allows `vastoceanlabs.github.io`, or the user in a browser.
 
 ## Live checks still to do (from S6)
 
