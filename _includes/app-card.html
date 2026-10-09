@@ -14,8 +14,16 @@
     </ul>
     {%- endif %}
     <div class="actions">
-      {%- if app.store %}
-      <a class="btn" href="{{ app.store.url }}">{{ app.store.label }}</a>
+      {%- if app.store.live %}
+      {% include store-button.html app=app %}
+      {%- if app.page %}
+      <a href="{{ app.page | relative_url }}">More about {{ app.name }}</a>
+      {%- endif %}
+      {%- else %}
+      {%- if app.page %}
+      <a class="btn" href="{{ app.page | relative_url }}">More about {{ app.name }}</a>
+      {%- endif %}
+      {% include store-button.html app=app %}
       {%- endif %}
       <span class="small-links">
         {%- for link in app.links %}

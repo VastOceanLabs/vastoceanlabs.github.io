@@ -33,6 +33,11 @@ offline. Layout of the source: see "Site architecture" in
 [`docs/PLAN.md`](docs/PLAN.md). To add an app, add an entry to
 `_data/apps.yml` and a folder for its pages.
 
+Logo, favicons and the share image are generated, not hand-drawn:
+`scripts/brand/build.sh` (requirements at the top of the script). The mark is
+traced from `scripts/brand/source/mark-source.webp` by
+`scripts/brand/trace_mark.py`; colours are in `scripts/brand/make_logo.py`.
+
 ## The host must match the app
 
 The app is built for **`vastoceanlabs.github.io`**. That value lives in one

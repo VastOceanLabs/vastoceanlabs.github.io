@@ -1,4 +1,5 @@
 # Main navigation, shown in the header on every page.
 - { title: Apps, url: "/#apps" }
 - { title: How we build, url: "/#principles" }
+- { title: About, url: "/#about" }
 - { title: Contact, url: "/#contact" }

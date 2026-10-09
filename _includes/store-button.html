@@ -1,0 +1,11 @@
+{%- comment -%}
+Primary download action for one app from _data/apps.yml.
+Usage: {% include store-button.html app=app %}
+While the listing isn't public (store.live false) it shows store.soon as text instead of a link.
+{%- endcomment -%}
+{%- assign store = include.app.store -%}
+{%- if store.live -%}
+<a class="btn" href="{{ store.url }}">{{ store.label }}</a>
+{%- else -%}
+<span class="soon">{{ store.soon }}</span>
+{%- endif -%}

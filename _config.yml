@@ -7,7 +7,7 @@ url: https://vastoceanlabs.github.io
 baseurl: ""
 lang: en
 # Public contact address, used on the home page (decision D-05).
-email: e.joyce01@gmail.com
+email: vastoceanlabs@gmail.com
 
 # Dot-directories are skipped by default; Android App Links need
 # /.well-known/assetlinks.json served.

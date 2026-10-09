@@ -4,7 +4,10 @@
 # slug         folder name under the site root (policy pages live there)
 # icon         512x512 PNG under assets/img/apps/
 # description  one paragraph; points are short bullets
-# store        primary download button
+# page         the app's own page (/<slug>/, layout "app"); cards link to it
+# store        primary download button. live: false shows `soon` instead of a
+#              link (the listing isn't public yet); set live: true at launch.
+# screenshots  phone screenshots for the app page, in order (540x1200 WebP)
 # links        secondary links (policies etc.); footer: true also lists it in the footer
 
 - slug: re-direct
@@ -17,12 +20,21 @@
     then get back to the right task. Pick a break (breathe, stretch, look away,
     a moment of quiet) and it brings you back to what you were working on.
   points:
-    - No account, no ads, no analytics
+    - No account, no ads, no tracking
     - Everything stays on your phone; the app doesn't request internet access
     - Send a friend a gentle nudge to take a break
+  page: /re-direct/
   store:
+    live: false
     label: Get it on Google Play
+    soon: Coming soon to Google Play
     url: https://play.google.com/store/apps/details?id=com.finepointrehab.redirect
+  screenshots:
+    - { src: /assets/img/apps/re-direct/01_home.webp, alt: "Home screen: a “Take a re-direct” card, today's count of breaks started, completed and returned, and a list of recent loops." }
+    - { src: /assets/img/apps/re-direct/02_recipe_picker.webp, alt: "Break recipe screen: choose 1.5, 3, 5 or 10 minutes, and a break: Breathe, Stretch, Look away, Quiet reset, Nature or Scroll & return." }
+    - { src: /assets/img/apps/re-direct/03_break_in_progress.webp, alt: "A Breathe break in progress: a breathing circle saying “Hold” above a countdown ring at 2:39, with Pause and End early." }
+    - { src: /assets/img/apps/re-direct/04_insights.webp, alt: "Insights screen for the last 7 days: return rate, break completion, energy delta, median sprint, routine days and notification health." }
+    - { src: /assets/img/apps/re-direct/05_trends.webp, alt: "Insights charts: return rate over time, the mix of break recipes, and a grid of when breaks were taken." }
   links:
     - { title: Privacy policy, url: /re-direct/privacy-policy.html, footer: true }
     - { title: Accessibility disclosure, url: /re-direct/accessibility.html }

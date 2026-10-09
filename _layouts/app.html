@@ -1,0 +1,41 @@
+---
+layout: default
+---
+{%- comment -%}
+App detail page. The page sets `app: <slug>` in front matter; name, icon, store
+button, screenshots and policy links come from that entry in _data/apps.yml.
+The page body holds the app's own sections (features etc.).
+{%- endcomment -%}
+{%- assign app = site.data.apps | where: "slug", page.app | first -%}
+<section class="app-hero" aria-labelledby="app-title">
+  <div class="wrap">
+    <img class="app-icon" src="{{ app.icon | relative_url }}" alt="{{ app.icon_alt | escape }}" width="120" height="120">
+    <div>
+      <p class="eyebrow">{{ app.platform }} app</p>
+      <h1 id="app-title">{{ app.name }}</h1>
+      <p class="lede">{{ page.tagline }}</p>
+      <div class="actions">
+        {% include store-button.html app=app %}
+        <span class="small-links">
+          {%- for link in app.links %}
+          <a href="{{ link.url | relative_url }}">{{ link.title }}</a>
+          {%- endfor %}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if app.screenshots %}
+<section class="section band shots" aria-label="Screenshots">
+  <div class="wrap">
+    <ul class="shot-list">
+      {%- for shot in app.screenshots %}
+      <li><img src="{{ shot.src | relative_url }}" alt="{{ shot.alt | escape }}" width="540" height="1200" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}"></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+{%- endif %}
+
+{{ content }}

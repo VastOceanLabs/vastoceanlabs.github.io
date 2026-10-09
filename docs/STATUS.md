@@ -2,31 +2,27 @@
 
 ## Now
 
-- **Milestone:** A — Foundations, complete. PR 1 (S1 + S2) is open into `main`.
-- **Last session:** S2 — Site structure (Jekyll) (done)
-- **Next session:** S3 — Brand identity. See [PLAN.md](PLAN.md#milestone-b--brand-and-content---pr-2).
-- **Start S3 from:** `main`, once PR 1 is merged. If PR 1 is still open,
-  ask the user to merge it first (or, if they prefer, start from
-  `claude/gifted-galileo-lof422`; the milestone B PR then also carries A).
-- **Open PRs:** [PR 1 — Milestone A](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1)
+- **Milestone:** B — Brand and content. Done (S3 + S4); PR 2 open into `main`.
+- **Last session:** S4 — Content and app page (done)
+- **Next session:** S5 — Quality pass. See [PLAN.md](PLAN.md#s5--quality-pass).
+- **Start S5 from:** `main` once PR 2 is merged. If it isn't merged yet, ask
+  the user; don't stack S5 on `claude/busy-meitner-o4j18j` without asking.
+- **Open PRs:** PR 2 — Milestone B (S3 + S4), from `claude/busy-meitner-o4j18j`.
 
-## Handoff to S3
+## Handoff to S5
 
-- S3 needs D-03 (logo) and D-04 (typeface) from the user before building.
-  Ask both at the start. D-09 (reuse the re-direct palette) may be revisited
-  at the same time if the user wants a separate studio identity.
-- Where things go: logo/favicons in `assets/img/`, linked from
-  `_includes/head.html` (the favicon currently points at the re-direct icon)
-  and the wordmark in `_includes/header.html`. Colour/type tokens are at the
-  top of `assets/css/site.css`. If a web font is chosen, self-host it under
-  `assets/fonts/` (no third-party requests; fits the privacy stance).
-- Share image (1200×630) goes in `assets/img/`; wire it into `head.html` as
-  `og:image` with a front-matter override (`page.og_image`). Full SEO is S5.
-- How to verify: `scripts/build.sh` (README → Building locally), then
-  screenshot `/` and `/re-direct/privacy-policy.html` at 1280 and 390px, light
-  and dark. Playwright needs a version matching the preinstalled Chromium
-  (`/opt/pw-browsers/chromium-1194` → `playwright@1.56.1`), installed in the
-  scratchpad, not the repo.
+- S5 needs D-08 (link-check CI). Ask at the start.
+- New in S4: `/re-direct/` (`re-direct/index.html`, `_layouts/app.html`),
+  `_includes/store-button.html`, screenshots in `assets/img/apps/re-direct/`,
+  About section and nav link on the home page, contact email
+  `vastoceanlabs@gmail.com` (D-05). Store button shows "Coming soon" while
+  `store.live: false` (D-13).
+- How to verify: as in S4. `scripts/build.sh`, serve `_site/`
+  (`python3 -m http.server`), screenshot `/`, `/re-direct/` and
+  `/re-direct/privacy-policy.html` at 1280 and 390px in light and dark, check
+  `scrollWidth == clientWidth`, and compare the protected URLs with a build
+  of the starting branch (`cmp` for `assetlinks.json`, `/r/index.html`,
+  `/r/og.png`; text inside `<main>` for the policy pages).
 
 ## Facts learned (keep)
 
@@ -41,17 +37,44 @@
 
 ## Noted for later sessions
 
-- **App repo (not this repo):** the policy header block (Effective date /
-  Publisher / Contact / App) renders as one run-on line because the Markdown
-  lines have no hard breaks. Fix in the app repo's `docs/PRIVACY_POLICY.md`
-  and `ACCESSIBILITY_DISCLOSURE.md` (end lines with two spaces or a
-  backslash, or make it a list), then re-sync. Pre-existing; not a site bug.
-- S4: the re-direct card copy (now in `_data/apps.yml`) was written from the
-  privacy policy; check it against the real app. The Apps intro "One app so
-  far, built carefully." is hard-coded in `index.html`; change it when a
-  second app arrives.
-- S5: no `404.html`, sitemap or share image yet. Canonical and basic Open
-  Graph tags exist in `head.html`.
+- **When re-direct goes public on Google Play:** set `store.live: true` in
+  `_data/apps.yml` (D-13). Small content-only PR, outside the milestone rhythm.
+- **re-direct icon (still open from S3):** the redrawn icon is on branch
+  `claude/keen-edison-jpo2qa` of `VastOceanLabs/re-direct`, still not merged
+  into its `main` at S4. Once it lands, replace `assets/img/apps/re-direct.png`
+  with `branding/store_listing/app_icon/out/app_icon_512.png` (the current file
+  is byte-identical to that file on the app repo's `main`). `/r/og.png` could
+  follow, but `/r/` is protected: content-only change, same path, re-check.
+- **S5:** `twitter:card` tags and per-page share images (the `/re-direct/` page
+  uses `og-default.png`; it can set `og_image`). Contrast: audit `--muted` on
+  `--surface`, the dark-mode cards, and `.soon` text. Font preload on every
+  page is fine at 39 KB.
+- **S5:** no `404.html`, sitemap or `robots.txt` yet.
+- **S5 (performance):** screenshots are 540×1200 WebP, 10–33 KB each, first
+  two eager, rest lazy. Made from the app repo's
+  `branding/store_listing/phone_screenshots/out/*.png` with Pillow (quality 82).
+- **App repo (not this repo):**
+  - Contact email (D-05): change `docs/PRIVACY_POLICY.md`,
+    `docs/ACCESSIBILITY_DISCLOSURE.md` and `docs/PLAY_CONSOLE_SUBMISSION.md` to
+    `vastoceanlabs@gmail.com`, re-run `scripts/sync_web_docs.js`, copy the
+    generated `re-direct/*.md` here. Until then the policy pages show the old
+    address. Also update the Play Console developer email.
+  - Naming: the store listing and privacy policy say "Analytics screen"; the
+    shipped app (screenshots) calls it "Insights". The site uses "Insights".
+  - Policy header block renders as one run-on line (no hard breaks in the
+    Markdown). Fix in the app repo, then re-sync. Pre-existing.
+- The Apps intro "One app so far, built carefully." is hard-coded in
+  `index.html`; change it when a second app arrives.
+
+## Facts learned in S3 (keep)
+
+- Rebuild the brand files with `NODE_PATH=$(npm root -g) scripts/brand/build.sh`
+  (needs `pip install fonttools brotli uharfbuzz pillow` and Playwright). In
+  the cloud sessions the globally installed Playwright works with the
+  preinstalled Chromium.
+- Chromium screenshots drop the alpha channel of fully opaque images, so
+  `apple-touch-icon.png` and `og-default.png` are RGB. That's what those
+  formats want.
 
 ## Session log
 
@@ -59,3 +82,5 @@
 |---|---|---|---|---|
 | S1 | 2026-10-08 | `claude/gifted-galileo-lof422` | Home page first draft; build plan, decision log, status docs, CLAUDE.md; README fixed for this repo | PR 1 |
 | S2 | 2026-10-08 | `claude/gifted-galileo-lof422` | Jekyll structure: layouts, includes, `site.css` tokens, `apps.yml`/`navigation.yml`; policy pages on the site layout; mobile tables; local build script. Home page pixel-identical to S1; protected URLs byte-identical | [PR 1](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/1) |
+| S3 | 2026-10-08 | `claude/keen-edison-jpo2qa` (from PR 1 branch) | Studio brand: user's sunset-over-sea mark, traced and recoloured, + Nunito wordmark (D-03; replaced the first drawn mark the same day), self-hosted Nunito headings (D-04), deeper ocean palette (D-12, fixes AA contrast), type and spacing tokens, favicons, apple-touch icon, 1200×630 share image as `og:image`; `scripts/brand/` generator. Protected URLs identical to S2; no horizontal scroll at 1280/390 light/dark | — (PR 2 after S4). PR 1 merged after S3; `main` merged into this branch |
+| S4 | 2026-10-09 | `claude/busy-meitner-o4j18j` (from S3) | Copy signed off (D-02: three principles reworded, card point "no tracking"); About section on home, no name (D-06); contact `vastoceanlabs@gmail.com` (D-05); "Coming soon to Google Play" until the listing is public (D-13); `/re-direct/` app page from the store listing and privacy policy, with five screenshots; card links to it. Protected URLs identical to S3; no horizontal scroll at 1280/390 light/dark | PR 2 (S3 + S4) |
