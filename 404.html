@@ -1,0 +1,22 @@
+---
+layout: default
+title: Page not found
+description: This page doesn't exist on the Vast Ocean Labs site.
+permalink: /404.html
+noindex: true
+sitemap: false
+---
+{%- comment -%} GitHub Pages serves this for any missing path, so every link here must be root-relative. {%- endcomment -%}
+<section class="section" aria-labelledby="nf-title">
+  <div class="wrap">
+    <p class="eyebrow">404</p>
+    <h1 id="nf-title" class="nf-title">Page not found</h1>
+    <p class="section-text">There's nothing at this address. It may have moved, or the link may have a typo.</p>
+    <div class="actions">
+      <a class="btn" href="{{ '/' | relative_url }}">Go to the home page</a>
+      {%- for app in site.data.apps %}
+      <a href="{{ app.page | relative_url }}">{{ app.name }}</a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

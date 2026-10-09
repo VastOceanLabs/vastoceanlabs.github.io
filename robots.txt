@@ -1,0 +1,9 @@
+---
+layout: null
+sitemap: false
+---
+# /r/ stays crawlable so link previews work; the page itself is noindex.
+User-agent: *
+Allow: /
+
+Sitemap: {{ "/sitemap.xml" | absolute_url }}

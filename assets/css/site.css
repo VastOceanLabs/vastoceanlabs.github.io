@@ -128,6 +128,8 @@ h1, h2, h3 { color:var(--deep); font-family:var(--font-display); font-weight:800
 }
 /* Screenshots: five across on wide screens; a swipeable row (inside its own box) on phones. */
 .shot-list { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(5, 1fr); gap:var(--space-5); }
+/* Inset ring: on phones the row runs edge to edge, so an outside ring would be cut off. */
+.shot-list:focus-visible { outline:3px solid var(--brand); outline-offset:-3px; border-radius:6px; }
 .shot-list img { display:block; width:100%; height:auto; border-radius:var(--radius); border:1px solid var(--line); }
 @media (max-width:760px) {
   .shot-list { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:min(60vw, 220px);
@@ -135,6 +137,9 @@ h1, h2, h3 { color:var(--deep); font-family:var(--font-display); font-weight:800
     margin:0 calc(-1 * var(--gutter)); padding-left:var(--gutter); padding-right:var(--gutter); scroll-padding:0 var(--gutter); }
   .shot-list li { scroll-snap-align:start; }
 }
+/* ---------- 404 ---------- */
+.nf-title { font-size:var(--text-2xl); line-height:1.15; letter-spacing:-0.02em; margin:0 0 var(--space-4); }
+
 .steps { margin:0; padding-left:var(--space-6); max-width:56ch; }
 .steps li { margin:0 0 var(--space-3); padding-left:var(--space-1); }
 .steps li::marker { color:var(--brand); font-weight:700; }
