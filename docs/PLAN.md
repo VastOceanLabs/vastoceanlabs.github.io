@@ -130,23 +130,33 @@ Needs: D-08 (decided: build + protected-URL check).
 - GitHub Action that builds the site and checks the protected URLs on every
   PR (D-08): `.github/workflows/site-check.yml` + `scripts/check-site.sh`.
 
-### S6 — Launch
-Needs: D-07 (custom domain or not).
-- Open PR 3 (S5 + S6). The "Site check" workflow (D-08) runs for the first
-  time on it: confirm it passes on GitHub, not just locally.
-- Merge PR 3; confirm Pages settings (branch `main`, root).
-- Verify live: home, app page, policies, `/r/`, `assetlinks.json` JSON.
-- If a custom domain is chosen: this changes App Links — the app's
-  `promptHost` must change too (see README). Plan that with the app release.
-- Write a short "how to add an app / page" guide in README.
+### S6 — Launch ✅
+Needs: D-07 (decided: stay on `vastoceanlabs.github.io` for now).
+- PR 3 (S5 + S6) opened. "Site check" (D-08) passed on its first GitHub run
+  with no workflow changes.
+- PR 3 merged. Pages deployed it from `main`, root.
+- README: "Adding an app or a page" guide.
+- The live HTTP checks couldn't be run from the session container (its
+  network policy blocks the site's host). They are listed in STATUS.md for
+  the user or the next session.
 
-Done when: live site verified. PR 3 = S5 (+ any S6 fixes).
+Done when: live site verified. PR 3 = S5 + S6.
+
+**Milestone C is done** (merged to `main` and deployed).
 
 ## Milestone D — Growth (as needed, one PR each)
 
 Not scheduled; picked up when wanted. Each is self-contained on the S2
-structure.
-- Second app: data entry + folder + policy pages.
+structure. Each starts from `main`, needs its decisions asked first, and
+ends with its own PR.
+- Second app: data entry + folder + policy pages (README, "Adding an app or
+  a page").
 - News/blog via `_posts/`.
 - Press kit page (logos, screenshots, short bio).
 - Newsletter or contact form (needs a third-party service — decide first).
+- Custom domain (D-07, deferred): new decision first. If the whole site
+  moves, time it with an app release that changes `promptHost`.
+
+Small content-only PRs outside the milestones (see STATUS.md, "Noted for
+later"): Play listing goes public (`store.live: true`), new re-direct icon,
+policy re-sync after the contact-email change in the app repo.

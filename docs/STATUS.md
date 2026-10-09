@@ -2,27 +2,41 @@
 
 ## Now
 
-- **Milestone:** C (Quality and launch). S6 is in progress.
-- **S6 so far:**
-  - D-07 decided: stay on `vastoceanlabs.github.io`.
-  - README has the "Adding an app or a page" guide.
-  - PR 3 (S5 + S6) is open from `claude/funny-hypatia-ad36l3`.
-- **Waiting on:** the "Site check" result on PR 3, then the user's merge,
-  then the live checks.
-- **Open PRs:** PR 3.
+- **Milestones A, B and C are done.** PR 3 (S5 + S6) was merged into `main`
+  on 2026-10-09 at the user's request (merge commit `decd2b5`) and deployed
+  by GitHub Pages.
+- **Last session:** S6 (Launch).
+- **Next:** no session is scheduled. Milestone D items are picked up when
+  wanted ([PLAN.md](PLAN.md#milestone-d--growth-as-needed-one-pr-each)).
+  Start each from `main`.
+- **Open PRs:** none.
 
-## Handoff (S6 in progress)
+## Live checks still to do (from S6)
 
-If this session stops before PR 3 is merged:
-1. Check that "Site check" is green on PR 3.
-2. Ask the user to merge it.
-3. Run the live checks in [PLAN.md](PLAN.md#s6--launch):
-   - home page, `/re-direct/` and both policy pages
-   - `/r/#f=Test`
-   - `assetlinks.json` is valid JSON
-   - a missing path shows the custom 404
-   - `robots.txt` and `sitemap.xml` load, and `/r/` is not in the sitemap
-   - Pages settings are branch `main`, folder `/ (root)`
+The S6 session container couldn't reach `vastoceanlabs.github.io`: its
+network policy blocked the host, for both curl and web fetch. What was
+confirmed instead:
+- The `pages build and deployment` run for `decd2b5` succeeded. It built
+  from branch `main`, source `/github/workspace/.` (the repo root).
+- The deployed artifact contains every protected path, plus `404.html`,
+  `robots.txt` and `sitemap.xml`.
+- A local build of `decd2b5` passes `check-site.sh`:
+  - `assetlinks.json` is valid JSON.
+  - The sitemap lists only `/`, `/re-direct/` and the two policy pages, so
+    `/r/` is not in it.
+
+Still to check in a browser, by the user or by a session whose environment
+allows the host:
+- [ ] `/`, `/re-direct/`, `/re-direct/privacy-policy.html` and
+      `/re-direct/accessibility.html` load with the new layout.
+- [ ] `/r/#f=Test` shows the fallback page.
+- [ ] `/.well-known/assetlinks.json` loads as JSON.
+- [ ] A missing path, e.g. `/nope`, shows the custom 404.
+- [ ] `/robots.txt` and `/sitemap.xml` load, and `/r/` is not in the
+      sitemap.
+- [ ] Repo → Settings → Pages shows "Deploy from a branch", `main`,
+      `/ (root)`. The deploy logs point to this, but the setting itself
+      can't be read from the session.
 
 ## What S5 changed
 
@@ -76,6 +90,19 @@ If this session stops before PR 3 is merged:
 
 ## Noted for later sessions
 
+- **`protected-change` label:** not created yet (the user didn't ask in S6).
+  Create it the first time a PR changes `assetlinks.json` or `/r/` on
+  purpose.
+- **Actions on Node 20:** the runs warn that `actions/checkout@v4` (Site
+  check) and Pages' own `upload-artifact@v4` target Node 20, which GitHub has
+  deprecated. They are forced onto Node 24 and still pass. Bump
+  `site-check.yml` to `actions/checkout@v5` in a later PR. The Pages one is
+  GitHub's.
+- **`assetlinks.json` fingerprints:** README, "Fill in fingerprints". Check
+  that the Play app-signing and upload-key SHA-256 values are in, then run the
+  `adb` verification there with a release build.
+- **Custom domain (D-07):** deferred. See D-07 for what a move involves.
+
 - **When re-direct goes public on Google Play:** set `store.live: true` in
   `_data/apps.yml` (D-13). Small content-only PR, outside the milestone rhythm.
 - **re-direct icon (still open from S3):** the redrawn icon is on branch
@@ -122,3 +149,4 @@ If this session stops before PR 3 is merged:
 | S3 | 2026-10-08 | `claude/keen-edison-jpo2qa` (from PR 1 branch) | Studio brand: user's sunset-over-sea mark, traced and recoloured, + Nunito wordmark (D-03; replaced the first drawn mark the same day), self-hosted Nunito headings (D-04), deeper ocean palette (D-12, fixes AA contrast), type and spacing tokens, favicons, apple-touch icon, 1200×630 share image as `og:image`; `scripts/brand/` generator. Protected URLs identical to S2; no horizontal scroll at 1280/390 light/dark | — (PR 2 after S4). PR 1 merged after S3; `main` merged into this branch |
 | S4 | 2026-10-09 | `claude/busy-meitner-o4j18j` (from S3) | Copy signed off (D-02: three principles reworded, card point "no tracking"); About section on home, no name (D-06); contact `vastoceanlabs@gmail.com` (D-05); "Coming soon to Google Play" until the listing is public (D-13); `/re-direct/` app page from the store listing and privacy policy, with five screenshots; card links to it. Protected URLs identical to S3; no horizontal scroll at 1280/390 light/dark | PR 2 (S3 + S4) |
 | S5 | 2026-10-09 | `claude/gracious-darwin-8mtg74` (from `main` after PR 2) | PR 2 merged (user). SEO: descriptions for every page, canonical, OG + `twitter:card`, `jekyll-sitemap`, `robots.txt`, `/r/` kept out of the sitemap without editing it (D-15). Custom `404.html`. Accessibility: contrast measured (all AA), keyboard-scrollable screenshot row, axe clean. Performance: no changes needed. CI: build + protected-URL check (D-08). `/re-direct/` keeps `og-default.png` (D-14). Protected URLs identical to `main`; no horizontal scroll at 1280/390 light/dark | — (PR 3 after S6) |
+| S6 | 2026-10-09 | `claude/funny-hypatia-ad36l3` (from S5) | D-07: stay on github.io for now. README guide "Adding an app or a page". PR 3 opened; Site check green on its first GitHub run, no workflow changes. Protected URLs identical to `main`; 16 views with no horizontal scroll. PR 3 merged (user) and deployed by Pages from `main`/root. Live HTTP checks blocked by the container's network policy (listed above) | [PR 3](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/3) |
