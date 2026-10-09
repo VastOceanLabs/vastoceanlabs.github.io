@@ -15,11 +15,13 @@ supersedes it instead.
 | D-06 | About: short home page section, no personal name | Decided (S4, user) | — |
 | D-13 | Play button shows "Coming soon" until the listing is public | Decided (S4, user) | — |
 | D-07 | Custom domain or stay on vastoceanlabs.github.io | Open | S6 |
-| D-08 | Link-check CI on PRs | Open | S5 |
+| D-08 | CI on PRs: build + protected-URL check (no full link check) | Decided (S5, user) | — |
 | D-09 | Visual direction: reuse re-direct palette (cream/teal) for the studio | Superseded by D-12 | — |
 | D-10 | One PR per milestone; sessions stack branches | Decided (S1, user) | — |
 | D-11 | Keep GitHub Pages' default theme enabled (don't set `theme`) | Decided (S2) | — |
 | D-12 | Studio palette: re-direct's cream with the studio's own deeper ocean blues | Decided (S3, user) | — |
+| D-14 | `/re-direct/` keeps `og-default.png` as its share image | Decided (S5, user) | — |
+| D-15 | `/r/` stays out of search via its own noindex and a `_config.yml` sitemap default; robots.txt doesn't block it | Decided (S5) | — |
 
 ## D-01 — Jekyll on GitHub Pages
 **Proposed in S1; confirmed by the user at the start of S2.**
@@ -105,9 +107,24 @@ App Links only work from the domain root and the app's `promptHost` is
 `vastoceanlabs.github.io`. Moving to a custom domain needs an app rebuild, and
 links already sent will only reach the fallback page. Decide before launch.
 
-## D-08 — Link-check CI
-A GitHub Action that builds the site and checks links/protected URLs on every
-PR. Cheap insurance as the site grows; decide in S5.
+## D-08 — CI on PRs
+**Decided by the user in S5:** build + protected-URL check, no full link
+check. `.github/workflows/site-check.yml` runs on every PR (and on pushes to
+`main`). It builds the PR and the base branch with the `github-pages` gem and
+runs `scripts/check-site.sh`, which checks that:
+- the protected paths, `404.html`, `robots.txt` and `sitemap.xml` exist
+- `assetlinks.json` is valid JSON
+- `/r/` keeps its noindex and stays out of the sitemap
+- the policy pages have a `<main>`
+- `assetlinks.json`, `/r/index.html` and `/r/og.png` are byte-identical to
+  the base branch, unless the PR has the `protected-change` label (for
+  intended changes such as a new fingerprint)
+
+It doesn't deploy; GitHub Pages still builds the site. The options offered
+were: none; this; this plus html-proofer/lychee over every link. The full
+link check was turned down because outside links (Play Store, rate limits)
+cause false failures and need an ignore list. The policy text isn't compared
+because re-syncs from the app repo change it on purpose.
 
 ## D-09 — Visual direction
 The studio site reuses the re-direct palette (cream `#FAF6F0`, teal
@@ -132,6 +149,21 @@ The old brand teal `#5E8B87` failed WCAG AA for links and white button text
 (3.5:1 and 3.8:1); `#2B6A88` passes (5.5:1 on the background, 6.0:1 under
 white text). The standalone `/r/` page keeps re-direct's own colours; it is
 the app's page, not the studio's.
+
+## D-14 — Share image for /re-direct/
+**Decided by the user in S5:** keep `assets/img/og-default.png` (studio logo
+on waves) for every page, including `/re-direct/`. The options offered were:
+this; a new 1200×630 card from `scripts/brand/render.js` with the app icon
+and name; pointing at the protected `/r/og.png`. A page can still set
+`og_image` in front matter if one is wanted later.
+
+## D-15 — Keeping /r/ out of search
+**Decided in S5** (no change to `/r/`). `/r/index.html` already has
+`<meta name="robots" content="noindex">`. It has no front matter, so Jekyll
+copies it as a static file. A `_config.yml` default (`path: r`,
+`sitemap: false`) keeps it out of `sitemap.xml` without editing it.
+`robots.txt` does not disallow `/r/`: crawlers have to fetch it to see the
+noindex, and link-preview bots need it for the share card.
 
 ## D-10 — Build process
 Decided by the user in S1: work through planned sessions in order, update the

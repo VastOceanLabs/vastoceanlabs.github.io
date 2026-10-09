@@ -46,7 +46,8 @@ _data/navigation.yml     header navigation
 _layouts/default.html    shared shell: head, header, <main>, footer
 _layouts/page.html       Markdown/text pages (the policies); wraps in .prose
 _layouts/app.html        app detail page (S4): hero, screenshots, then the page body
-_includes/head.html      <head>: title, description, canonical, Open Graph
+_includes/head.html      <head>: title, description, canonical, Open Graph, twitter:card;
+                         front-matter keys listed at the top of the file
 _includes/header.html    skip link, wordmark, nav
 _includes/footer.html    copyright + footer links from apps.yml
 _includes/app-card.html  one app card, rendered from apps.yml
@@ -68,6 +69,7 @@ blog later = a `_posts/` folder. Neither needs layout changes.
 
 **Building locally:** `scripts/build.sh` (see README). It mirrors GitHub
 Pages, including its default plugins and theme, and works offline.
+`scripts/check-site.sh _site [<base-build>]` runs the same checks as CI.
 
 ## Milestone A — Foundations  → PR 1
 
@@ -118,17 +120,20 @@ Done when: content approved by the user. **Open PR 2** (S3 + S4).
 
 ## Milestone C — Quality and launch  → PR 3
 
-### S5 — Quality pass
+### S5 — Quality pass ✅
+Needs: D-08 (decided: build + protected-URL check).
 - SEO: titles/descriptions per page, canonical URLs, Open Graph/Twitter tags
   from data, `jekyll-sitemap`, `robots.txt` (keep `/r/` noindex).
 - Custom `404.html`.
 - Accessibility audit (contrast, headings, focus, alt text) and fixes.
 - Performance check (image sizes, no unused CSS).
-- Optional: GitHub Action that builds the site and checks links on every PR,
-  so later PRs can't break protected URLs (D-08).
+- GitHub Action that builds the site and checks the protected URLs on every
+  PR (D-08): `.github/workflows/site-check.yml` + `scripts/check-site.sh`.
 
 ### S6 — Launch
 Needs: D-07 (custom domain or not).
+- Open PR 3 (S5 + S6). The "Site check" workflow (D-08) runs for the first
+  time on it: confirm it passes on GitHub, not just locally.
 - Merge PR 3; confirm Pages settings (branch `main`, root).
 - Verify live: home, app page, policies, `/r/`, `assetlinks.json` JSON.
 - If a custom domain is chosen: this changes App Links — the app's

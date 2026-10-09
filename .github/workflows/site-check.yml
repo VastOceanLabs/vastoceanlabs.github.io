@@ -1,0 +1,39 @@
+# Build the site the way GitHub Pages does and check the protected URLs
+# (CLAUDE.md, decision D-08). The site itself is still built and deployed by
+# GitHub Pages; this workflow only checks.
+name: Site check
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - name: Build
+        run: scripts/build.sh _site
+      - name: Build base branch
+        if: github.event_name == 'pull_request'
+        run: |
+          git worktree add ../base "origin/${{ github.base_ref }}"
+          # Same gems as the PR build (already installed by setup-ruby).
+          BUNDLE_GEMFILE="$PWD/Gemfile" ../base/scripts/build.sh "$PWD/../base_site"
+      - name: Check protected URLs
+        env:
+          ALLOW_PROTECTED_CHANGE: ${{ contains(github.event.pull_request.labels.*.name, 'protected-change') && '1' || '0' }}
+        run: |
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            scripts/check-site.sh _site ../base_site
+          else
+            scripts/check-site.sh _site
+          fi

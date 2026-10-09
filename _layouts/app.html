@@ -29,7 +29,8 @@ The page body holds the app's own sections (features etc.).
 {%- if app.screenshots %}
 <section class="section band shots" aria-label="Screenshots">
   <div class="wrap">
-    <ul class="shot-list">
+    {%- comment -%} tabindex: on phones the row scrolls sideways, so keyboard users need to be able to focus it to scroll it with the arrow keys. {%- endcomment %}
+    <ul class="shot-list" tabindex="0" aria-label="{{ app.name }} screenshots">
       {%- for shot in app.screenshots %}
       <li><img src="{{ shot.src | relative_url }}" alt="{{ shot.alt | escape }}" width="540" height="1200" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}"></li>
       {%- endfor %}

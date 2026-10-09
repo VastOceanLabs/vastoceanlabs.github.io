@@ -29,7 +29,12 @@ scripts/build.sh serve    # serve on http://127.0.0.1:4000
 ```
 
 The script mirrors GitHub Pages (same gem, default plugins and theme) and works
-offline. Layout of the source: see "Site architecture" in
+offline. `scripts/check-site.sh _site [<base-build>]` checks the protected
+paths above (they exist, `assetlinks.json` is valid JSON, `/r/` stays noindex
+and out of the sitemap, and, given a build of the base branch, that
+`assetlinks.json`, `/r/index.html` and `/r/og.png` haven't changed). The
+"Site check" GitHub Action runs it on every PR. A PR that changes one of those
+files on purpose (e.g. a new fingerprint) needs the `protected-change` label. Layout of the source: see "Site architecture" in
 [`docs/PLAN.md`](docs/PLAN.md). To add an app, add an entry to
 `_data/apps.yml` and a folder for its pages.
 

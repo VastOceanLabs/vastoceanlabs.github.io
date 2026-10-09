@@ -9,14 +9,34 @@ lang: en
 # Public contact address, used on the home page (decision D-05).
 email: vastoceanlabs@gmail.com
 
+# jekyll-sitemap is one of GitHub Pages' whitelisted plugins (D-01).
+plugins: ["jekyll-sitemap"]
+
 # Dot-directories are skipped by default; Android App Links need
 # /.well-known/assetlinks.json served.
 include: [".well-known"]
 # Planning docs and repo files are not part of the site.
-exclude: ["README.md", "CLAUDE.md", "docs", "scripts", "Gemfile", "Gemfile.lock", "vendor"]
+exclude: ["README.md", "CLAUDE.md", "docs", "scripts", "Gemfile", "Gemfile.lock", "vendor", ".github"]
 
 # Markdown pages without front matter (the re-direct policies, synced from the
 # app repo) get the "page" layout via GitHub Pages' default plugins.
 defaults:
   - scope: { path: "", type: pages }
     values: { layout: page }
+  # /r/ is a standalone page (CLAUDE.md: don't edit it). It carries its own
+  # robots noindex; this keeps it out of sitemap.xml without touching the file.
+  - scope: { path: "r" }
+    values: { sitemap: false }
+  # The policy pages are synced from the app repo without front matter, so
+  # their meta descriptions are set here.
+  - scope: { path: "re-direct/privacy-policy.md" }
+    values:
+      description: >-
+        How re-direct handles your data: everything stays on your phone, there
+        is no account and no internet access, and you can export or delete it
+        at any time.
+  - scope: { path: "re-direct/accessibility.md" }
+    values:
+      description: >-
+        Why re-direct uses Android's Accessibility Service API for its blocking
+        and Scroll & return features, and what it never does with it.
