@@ -160,6 +160,18 @@ rhythm. Started from S6's branch (`main` plus one S6 docs commit).
 Done when: PR 4 (S6 docs commit + S7) has "Site check" green. Merging is the
 user's call.
 
+### S8 — Launch follow-up 2
+Asked for by the user. Started from `main` after PR 4. Planned as one small
+PR into `main` with the `protected-change` label.
+- Put the Play app-signing SHA-256 in the `com.finepointrehab.redirect`
+  entry of `.well-known/assetlinks.json`, replacing only the placeholder.
+- Run the live checks left over from S6 (STATUS.md) and tick them off.
+
+Outcome (2026-10-12): both blocked, docs-only session, no PR. re-direct
+isn't in Play Console yet, so there's no app signing key. The container
+still couldn't reach the host. Re-run this scope once they clear (STATUS.md
+has the handoff).
+
 ## Milestone D — Growth (as needed, one PR each)
 
 Not scheduled; picked up when wanted. Each is self-contained on the S2

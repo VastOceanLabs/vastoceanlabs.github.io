@@ -5,12 +5,15 @@
 - **Milestones A, B and C are done.** PR 3 (S5 + S6) was merged into `main`
   on 2026-10-09 at the user's request (merge commit `decd2b5`) and deployed
   by GitHub Pages.
-- **Last session:** S7 (launch follow-up), branch
-  `claude/cool-albattani-2xye8s`, started from S6's branch.
-- **Open PRs:** none. PR 4 (S6 docs commit + S7) was merged into `main`
-  at the user's request at the end of S7.
-- **Next:** S8, launch follow-up 2 (see the to-do list below). Start from
-  `main`. Milestone D items are picked up when wanted
+- **Last session:** S8 (launch follow-up 2), branch
+  `claude/wonderful-faraday-aek6wm`, started from `main` (`896f793`, PR 4
+  merged). Docs only: both of its tasks were blocked (see the to-do list).
+  No PR opened; nothing on the site changed.
+- **Open PRs:** none.
+- **Next:** repeat S8's scope (PLAN.md, S8) once its blockers clear. Start
+  from `main`, and take this branch's docs commit along (merge or
+  cherry-pick it) if it isn't in `main` yet. Milestone D items are picked
+  up when wanted
   ([PLAN.md](PLAN.md#milestone-d--growth-as-needed-one-pr-each)).
 
 ## To-do
@@ -19,6 +22,10 @@
       supplies it). The release entry `com.finepointrehab.redirect` still
       has `REPLACE_WITH_PLAY_APP_SIGNING_KEY_SHA256`. Until it's replaced,
       App Links won't verify for copies installed from Google Play.
+      **Blocked (S8, 2026-10-12):** re-direct hasn't been created in Play
+      Console yet (only Day View is there), so there is no app signing key
+      to copy. Play creates it when re-direct is set up and its first app
+      bundle is uploaded (internal testing is enough). Pick this up then.
   1. User: Play Console → re-direct → Setup → App signing → copy the
      "App signing key certificate" SHA-256.
   2. Session: replace the placeholder with it (keep the upload-key and
@@ -30,8 +37,17 @@
      release build (README, "Fill in fingerprints").
 - [ ] **Live checks** (list below). They need a session whose network
       policy allows `vastoceanlabs.github.io`, or the user in a browser.
+      Still blocked in S8 (below).
 
 ## Live checks still to do (from S6)
+
+**S8 (2026-10-12): still blocked.** The user had added
+`vastoceanlabs.github.io` to the environment's allowed domains, but the S8
+container still couldn't reach it. curl got a 403 from the egress proxy on
+CONNECT for all 9 paths, and web fetch failed with `ENOTFOUND`. The setting
+probably only applies to sessions started after it was changed: check it's
+saved (environment → Edit → Network access → Allowed domains), then start a
+new session. Nothing below is ticked, and no results were made up.
 
 **S7 (2026-10-09): still blocked.** The S7 container couldn't reach the host
 either: curl got a 403 from the egress proxy on CONNECT, and web fetch
@@ -140,6 +156,13 @@ allows the host:
   the user gives the value, it's a protected change: ask before creating the
   `protected-change` label. Then run the `adb` verification (README, "Fill
   in fingerprints") with a release build.
+- **S8 handoff for the fingerprint PR:** after the one-line change, verify
+  `assetlinks.json` is valid JSON with only the placeholder line in the
+  diff; `build.sh` + `check-site.sh _site <main build>` pass with
+  `ALLOW_PROTECTED_CHANGE=1` and fail without it; `/r/index.html` and
+  `/r/og.png` are identical to a build of `main`. Then ask before creating
+  the `protected-change` label, put it on the PR, get "Site check" green,
+  ask before merging, and re-check the live `assetlinks.json` after deploy.
 - **Custom domain (D-07):** deferred. See D-07 for what a move involves.
 
 - **When re-direct goes public on Google Play:** set `store.live: true` in
@@ -190,3 +213,4 @@ allows the host:
 | S5 | 2026-10-09 | `claude/gracious-darwin-8mtg74` (from `main` after PR 2) | PR 2 merged (user). SEO: descriptions for every page, canonical, OG + `twitter:card`, `jekyll-sitemap`, `robots.txt`, `/r/` kept out of the sitemap without editing it (D-15). Custom `404.html`. Accessibility: contrast measured (all AA), keyboard-scrollable screenshot row, axe clean. Performance: no changes needed. CI: build + protected-URL check (D-08). `/re-direct/` keeps `og-default.png` (D-14). Protected URLs identical to `main`; no horizontal scroll at 1280/390 light/dark | — (PR 3 after S6) |
 | S6 | 2026-10-09 | `claude/funny-hypatia-ad36l3` (from S5) | D-07: stay on github.io for now. README guide "Adding an app or a page". PR 3 opened; Site check green on its first GitHub run, no workflow changes. Protected URLs identical to `main`; 16 views with no horizontal scroll. PR 3 merged (user) and deployed by Pages from `main`/root. Live HTTP checks blocked by the container's network policy (listed above) | [PR 3](https://github.com/VastOceanLabs/vastoceanlabs.github.io/pull/3) |
 | S7 | 2026-10-09 | `claude/cool-albattani-2xye8s` (from S6) | Launch follow-up. Live checks still blocked by the container's network policy (curl proxy 403, web fetch blocked); left unticked. `site-check.yml` → `actions/checkout@v5`, nothing else changed. `assetlinks.json` reviewed: Play app-signing fingerprint is still a placeholder; file not changed. `build.sh` + `check-site.sh _site <main build>` pass; `assetlinks.json`, `/r/index.html`, `/r/og.png` identical to `main` | PR 4 |
+| S8 | 2026-10-12 | `claude/wonderful-faraday-aek6wm` (from `main` after PR 4) | Launch follow-up 2, docs only. Fingerprint blocked: re-direct isn't in Play Console yet, so there's no app signing key; `assetlinks.json` not changed. Live checks still blocked (proxy 403 on CONNECT, web fetch `ENOTFOUND`) even with the host allow-listed; left unticked. No PR | — |
